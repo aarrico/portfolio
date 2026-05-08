@@ -1,0 +1,15 @@
+[
+  {
+    "slug": "portfolio",
+    "title": "Portfolio Site",
+    "blurb": "This site. Next.js 16, MDX, retrowave aesthetic.",
+    "tags": ["Next.js", "TypeScript", "Tailwind"],
+    "thumbnail": "/images/projects/portfolio.png",
+    "links": {
+      "repo": "https://github.com/aarrico/portfolio"
+    },
+    "featured": true,
+    "order": 1,
+    "date": "2026-05"
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "basics": {
+    "name": "Alexander Arrico",
+    "title": "Software Engineer",
+    "location": "Los Angeles, CA",
+    "email": "alex.arrico@gmail.com",
+    "links": {
+      "github": "https://github.com/aarrico",
+      "linkedin": "https://www.linkedin.com/in/alexander-arrico",
+      "website": "https://arrico.me"
+    }
+  },
+  "summary": "Software engineer focused on TypeScript, React, and Next.js.",
+  "experience": [
+    {
+      "company": "TBD Company",
+      "role": "TBD Role",
+      "start": "2020-01",
+      "end": null,
+      "location": "Los Angeles, CA",
+      "bullets": [
+        "Replace this bullet with a real accomplishment."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "school": "TBD School",
+      "degree": "TBD Degree",
+      "start": "2014-09",
+      "end": "2018-05"
+    }
+  ],
+  "skills": [
+    { "category": "Languages", "items": ["TypeScript", "JavaScript", "Python"] },
+    { "category": "Frameworks", "items": ["React", "Next.js", "Node.js"] }
+  ]
+}
