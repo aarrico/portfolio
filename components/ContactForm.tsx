@@ -34,14 +34,16 @@ export function ContactForm({ action = sendContact }: ContactFormProps) {
     reset,
   } = useForm<FormValues>({ resolver: zodResolver(ClientSchema) });
 
+  // The ref is read inside the submit handler (event-driven, not render).
+  // eslint-disable-next-line react-hooks/refs
   const onSubmit = handleSubmit((values) => {
-    const fd = new FormData();
-    fd.set("name", values.name);
-    fd.set("email", values.email);
-    fd.set("message", values.message);
-    fd.set("website", "");
-    fd.set("startedAt", String(startedAt.current || Date.now()));
     startTransition(async () => {
+      const fd = new FormData();
+      fd.set("name", values.name);
+      fd.set("email", values.email);
+      fd.set("message", values.message);
+      fd.set("website", "");
+      fd.set("startedAt", String(startedAt.current || Date.now()));
       const r = await action(fd);
       setResult(r);
       if (r.ok) reset();
@@ -96,7 +98,7 @@ export function ContactForm({ action = sendContact }: ContactFormProps) {
         {pending ? "Sending…" : "Send"}
       </button>
 
-      {result?.ok && <p className="text-sm">Thanks — I'll get back to you soon.</p>}
+      {result?.ok && <p className="text-sm">Thanks — I&apos;ll get back to you soon.</p>}
       {result && !result.ok && (
         <p className="text-sm text-[color:var(--accent)]">{result.error}</p>
       )}
