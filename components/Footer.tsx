@@ -1,4 +1,5 @@
 import { HorizonLine } from "./aesthetic/HorizonLine";
+import { SocialLinks } from "./SocialLinks";
 
 const YEAR = new Date().getFullYear();
 
@@ -8,10 +9,7 @@ export function Footer() {
       <HorizonLine />
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-6 text-sm">
         <p>© {YEAR} Alexander Arrico</p>
-        <ul className="flex gap-4">
-          <li><a href="https://github.com/aarrico" target="_blank" rel="noreferrer">GitHub</a></li>
-          <li><a href="https://www.linkedin.com/in/alexander-arrico" target="_blank" rel="noreferrer">LinkedIn</a></li>
-        </ul>
+        <SocialLinks />
       </div>
     </footer>
   );

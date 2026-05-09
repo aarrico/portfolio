@@ -90,17 +90,25 @@ export function ContactForm({ action = sendContact }: ContactFormProps) {
         <input id="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="rounded-sm border border-[color:var(--accent)] px-4 py-2 text-sm hover:bg-[color:var(--accent)] hover:text-[color:var(--bg)] disabled:opacity-50"
-      >
-        {pending ? "Sending…" : "Send"}
-      </button>
+      <div className="flex justify-center">
+        <button
+          type="submit"
+          disabled={pending}
+          className="rounded-sm border border-[color:var(--accent)] px-4 py-2 text-sm hover:bg-[color:var(--accent)] hover:text-[color:var(--bg)] disabled:opacity-50"
+        >
+          {pending ? "Sending…" : "Send"}
+        </button>
+      </div>
 
-      {result?.ok && <p className="text-sm">Thanks — I&apos;ll get back to you soon.</p>}
+      {result?.ok && (
+        <p className="text-center text-sm">
+          Thanks — I&apos;ll get back to you soon.
+        </p>
+      )}
       {result && !result.ok && (
-        <p className="text-sm text-[color:var(--accent)]">{result.error}</p>
+        <p className="text-center text-sm text-[color:var(--accent)]">
+          {result.error}
+        </p>
       )}
     </form>
   );
