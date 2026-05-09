@@ -6,6 +6,7 @@ export const ResumeSchema = z.object({
   basics: z.object({
     name: z.string().min(1),
     title: z.string().min(1),
+    headline: z.string().min(1).max(160).nullable().optional(),
     location: z.string().min(1),
     email: z.string().email(),
     links: z.object({
