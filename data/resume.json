@@ -1,0 +1,185 @@
+{
+    "basics": {
+        "name": "Alexander Arrico",
+        "title": "Senior Software Engineer & Architect",
+        "location": "Brunswick, GA",
+        "email": "alex@arrico.me",
+        "headline": "Senior engineer & architect. I evolve legacy codebases, PR query latency, and build eng teams from a 1RM of one. Open to work.",
+        "links": {
+            "github": "https://github.com/aarrico",
+            "linkedin": "https://linkedin.com/in/aarrico",
+            "website": "https://arrico.me"
+        }
+    },
+    "summary": "Senior engineer and technical leader who specializes in walking into legacy codebases and making them modern. 10+ years of experience migrating monoliths to microservices, building engineering teams from scratch, and establishing the processes that make software organizations actually ship. Track record includes a zero-downtime migration of 20,000+ users from Java to Node.js, a 200x query latency improvement, and founding an engineering department from one person to a functional team with CI/CD, processes that make sense for the team, and code review culture in place. Seeking a senior engineering or technical leadership role where that experience drives real impact.",
+    "experience": [
+        {
+            "company": "Hourwork, Inc.",
+            "role": "Engineering Manager",
+            "start": "2022-05",
+            "end": "2023-11",
+            "location": "Remote",
+            "bullets": [
+                "Led the complete engineering modernization of a legacy Java platform, managing migration to a cloud-native Node.js ecosystem with zero downtime.",
+                "Migrated 20,000+ users from legacy infrastructure to a modern microservices architecture in 11 months with zero data loss.",
+                "Re-architected PostgreSQL data models, achieving a 200x reduction in query latency and enabling real-time analytics that drove new enterprise sales.",
+                "Implemented trunk-based development and automated CI/CD pipelines, reducing release cycles from quarterly to weekly.",
+                "Instituted code review standards, RFC processes, and incident management protocols, reducing customer-reported bugs by 85% within two months.",
+                "Architected a serverless messaging platform using AWS Lambda and SQS/SNS, processing 350,000+ daily messages with near real-time latency.",
+                "Built a comprehensive observability strategy using DataDog, reducing MTTR for critical production incidents to under 24 hours."
+            ]
+        },
+        {
+            "company": "Freelance",
+            "role": "Software Consultant",
+            "start": "2024-06",
+            "end": null,
+            "location": "Remote",
+            "bullets": [
+                "Build and maintain a modular TypeScript/Discord.js bot with a layered architecture (controller/repository/domain/presentation), backed by PostgreSQL via Prisma ORM with Docker multi-stage builds for production deployment.",
+                "Implement cron-based session lifecycle automation with recovery logic for downtime, dynamic image generation using Sharp and Canvas, and auto-discovered slash command/event handlers with structured error wrapping.",
+                "Deploy via Railway with GitHub Actions CI/CD, using path aliases with conditional resolution for dev/prod environments and containerized PostgreSQL for local development."
+            ]
+        },
+        {
+            "company": "BlueMark",
+            "role": "Lead Software Engineer",
+            "start": "2021-06",
+            "end": "2022-04",
+            "location": "Remote",
+            "bullets": [
+                "Lead Backend Architect for a high-traffic e-commerce portal, owning RESTful API design and automated quality assurance pipelines.",
+                "Designed and deployed a scalable RESTful API using Python/Flask and AWS, directly supporting new revenue streams.",
+                "Reduced regression defects by 70% by architecting a comprehensive testing suite (Unit, Integration, E2E) with pytest and Jest.",
+                "Streamlined cross-team integration by defining strict API contracts with OpenAPI/Swagger, eliminating frontend-backend bottlenecks."
+            ]
+        },
+        {
+            "company": "Optricity Corp.",
+            "role": "Director of Technology",
+            "start": "2019-01",
+            "end": "2021-06",
+            "location": "Durham, NC",
+            "bullets": [
+                "Promoted to establish and scale the company’s first engineering department, defining technical roadmap, hiring strategy, and Agile SDLC standards.",
+                "Founded and scaled the engineering department from 1 to 4 engineers, establishing hiring pipelines, onboarding documentation, and career ladders.",
+                "Modernized SDLC by migrating from open source ticket tracker to GitLab, implementing Agile methodologies that made sense for the team, and building the company’s first automated CI/CD workflows.",
+                "Engineered a serverless client portal on GCP (App Engine/Firebase) in under 7 days, ensuring business continuity during COVID-19.",
+                "Reduced core application load times by 70% through complete re-architecture of the legacy XML-based loading engine.",
+                "Automated QA by integrating a custom Python scripting engine into the core Java application, cutting customer-reported defects by 60%."
+            ]
+        },
+        {
+            "company": "Optricity Corp.",
+            "role": "Software Engineer → Senior Software Engineer",
+            "start": "2016-01",
+            "end": "2019-01",
+            "location": "Durham, NC",
+            "bullets": [
+                "Progressed from founding engineer to senior role, building internal tooling, client-facing APIs, and driving the company’s first modernization initiatives.",
+                "Built a direct-integration Web Services API enabling seamless data exchange between client WMS and Optricity, eliminating 10+ hours of manual data entry per client weekly.",
+                "Developed an internal quality control scanner using Python/Flask, automating data validation for customers and reducing support tickets by 20%.",
+                "Led the migration of the flagship codebase from SVN to Git, enabling modern branching strategies and issue tracking integration.",
+                "Architected the company’s secondary support application using C#/.NET, implementing proprietary algorithms for client warehouse system integration.",
+                "Created the company’s first CI/CD pipeline with Jenkins and refactored the flagship product’s script API to support third-party Python libraries."
+            ]
+        }
+    ],
+    "education": [
+        {
+            "school": "University of Tennessee, Knoxville",
+            "degree": "M.S. Materials Science & Engineering",
+            "start": "2012-08",
+            "end": "2014-08"
+        },
+        {
+            "school": "Duquesne University, Pittsburgh",
+            "degree": "B.S. Physics / B.A. Computer Science / B.A. Mathematics",
+            "start": "2008-08",
+            "end": "2012-05"
+        }
+    ],
+    "skills": [
+        {
+            "category": "Languages",
+            "items": [
+                "Python",
+                "Node.js/TypeScript",
+                "Java",
+                "C#",
+                "SQL",
+                "Go",
+                "Bash"
+            ]
+        },
+        {
+            "category": "Backend & Frameworks",
+            "items": [
+                "Flask",
+                "FastAPI",
+                "Django",
+                "Express.js",
+                "REST API Design",
+                "OpenAPI/Swagger",
+                "WebSockets",
+                "OAuth/JWT"
+            ]
+        },
+        {
+            "category": "Data & Messaging",
+            "items": [
+                "PostgreSQL",
+                "MongoDB",
+                "DynamoDB",
+                "Redis",
+                "RabbitMQ",
+                "pandas",
+                "SQLAlchemy",
+                "Event-Driven Architecture"
+            ]
+        },
+        {
+            "category": "Cloud & Infrastructure",
+            "items": [
+                "AWS (Lambda, SQS, SNS, S3, EC2, RDS, DynamoDB, CloudWatch)",
+                "GCP",
+                "Docker",
+                "Kubernetes",
+                "Terraform",
+                "Nginx"
+            ]
+        },
+        {
+            "category": "DevOps & Testing",
+            "items": [
+                "CI/CD (GitHub Actions, GitLab CI, Jenkins)",
+                "DataDog",
+                "pytest",
+                "Jest",
+                "Cypress",
+                "Trunk-Based Development",
+                "Microservices"
+            ]
+        },
+        {
+            "category": "Frontend",
+            "items": [
+                "React",
+                "HTML/CSS",
+                "JavaScript"
+            ]
+        },
+        {
+            "category": "Leadership & Tools",
+            "items": [
+                "Agile/Scrum",
+                "Incident Management",
+                "Hiring & Team Scaling",
+                "RFC/Architecture Review",
+                "Jira",
+                "Confluence",
+                "Notion"
+            ]
+        }
+    ]
+}

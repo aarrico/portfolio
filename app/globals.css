@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-display: var(--font-display);
+
+  --color-magenta: #a8275a;
+  --color-rose: #e85a7c;
+  --color-orange: #ff8559;
+  --color-ember: #ffb347;
+  --color-accent: #7adfd9;
+  --color-blue: #2a3658;
+  --color-purple: #6b3a7a;
+  --color-pink: #e8a3b5;
+  --color-peach: #ffd4a8;
+  --color-gold: #fff0c4;
+  --color-teal: #3a6b6b;
+}
+
+:root {
+  --bg: #fff0c4;
+  --fg: #0d0820;
+  --accent: #3a6b6b;
+  --gradient-stop-1: #2a3658;
+  --gradient-stop-2: #6b3a7a;
+  --gradient-stop-3: #e8a3b5;
+  --gradient-stop-4: #ffd4a8;
+  --gradient-stop-5: #fff0c4;
+  --sun-stop-1: #ffd4a8;
+  --sun-stop-2: #fff0c4;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0d0820;
+  --fg: #f5ede0;
+  --accent: #7adfd9;
+  --gradient-stop-1: #0d0820;
+  --gradient-stop-2: #a8275a;
+  --gradient-stop-3: #e85a7c;
+  --gradient-stop-4: #ff8559;
+  --gradient-stop-5: #ffb347;
+  --sun-stop-1: #ffb347;
+  --sun-stop-2: #ff8559;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+@keyframes hero-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes sun-rise {
+  0%   { opacity: 0; transform: translateY(22px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes grid-scan {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(28px); }
+}
+
+.hero-rise {
+  opacity: 0;
+  animation: hero-rise 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.sun-rise {
+  opacity: 0;
+  animation: sun-rise 1400ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.grid-scan {
+  animation: grid-scan 7s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .hero-rise, .sun-rise { opacity: 1; transform: none; filter: none; }
+}
