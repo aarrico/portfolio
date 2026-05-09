@@ -34,6 +34,7 @@ export function ContactForm({ action = sendContact }: ContactFormProps) {
     reset,
   } = useForm<FormValues>({ resolver: zodResolver(ClientSchema) });
 
+  // The ref is read inside the submit handler (event-driven, not render).
   // eslint-disable-next-line react-hooks/refs
   const onSubmit = handleSubmit((values) => {
     startTransition(async () => {

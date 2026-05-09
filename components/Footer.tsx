@@ -1,7 +1,5 @@
 import { HorizonLine } from "./aesthetic/HorizonLine";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
-import SocialLinks from "./SocialLinks";
-
+import { SocialLinks } from "./SocialLinks";
 
 const YEAR = new Date().getFullYear();
 
@@ -11,7 +9,7 @@ export function Footer() {
       <HorizonLine />
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-6 text-sm">
         <p>© {YEAR} Alexander Arrico</p>
-        <SocialLinks/>
+        <SocialLinks />
       </div>
     </footer>
   );

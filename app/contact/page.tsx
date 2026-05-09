@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { InnerPageHeader } from "@/components/aesthetic/InnerPageHeader";
 import { ContactForm } from "@/components/ContactForm";
 import { getResume } from "@/lib/data";
-import SocialLinks from "@/components/SocialLinks";
+import { SocialLinks } from "@/components/SocialLinks";
 
 export const metadata: Metadata = {
   title: "Contact",
