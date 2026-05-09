@@ -31,16 +31,25 @@ export async function sendContact(formData: FormData): Promise<ContactResult> {
     return { ok: false, error: "Contact form is not configured." };
   }
 
-  try {
-    await getResend().emails.send({
+  // Resend's SDK does NOT throw on API errors — it returns { data, error }.
+  // Inspect `error` explicitly; otherwise misconfigurations (unverified domain,
+  // bad API key, etc.) silently report success while no email is sent.
+  const idempotencyKey = `contact-form/${parsed.data.startedAt}-${parsed.data.email}`;
+  const { data, error } = await getResend().emails.send(
+    {
       to,
       from,
       replyTo: parsed.data.email,
       subject: `arrico.me — message from ${parsed.data.name}`,
       text: parsed.data.message,
-    });
-    return { ok: true };
-  } catch {
+    },
+    { idempotencyKey },
+  );
+
+  if (error) {
+    console.error("[contact] resend error:", error);
     return { ok: false, error: "Could not send the message right now." };
   }
+  console.log("[contact] resend ok, id:", data?.id);
+  return { ok: true };
 }
