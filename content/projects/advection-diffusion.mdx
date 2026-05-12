@@ -36,7 +36,11 @@ simulation telling you it's no longer simulating anything.
 
 The original Fortran 90 code is from 2014 (from a numerical methods course in grad school). To run it in a
 browser, I had Gemini 3.1 Pro translate the Fortran to C++, then compiled the
-C++ to WebAssembly with Emscripten. The translation is verified
-against a frozen Fortran reference snapshot: the test suite runs each
-preset under WASM and asserts the output matches the Fortran's to
-1e-10. The original Fortran source is linked below.
+C++ to WebAssembly with Emscripten. The translation is checked against
+a frozen snapshot of the original Fortran's output: the test suite
+runs each preset under WASM and asserts the curves track the Fortran's
+within a small tolerance. The math is identical to the bit — a tiny
+residual comes from `time += dt` accumulating differently across the
+two compilers' floating-point pipelines, which puts the WASM about one
+timestep past the Fortran at output time. The original Fortran source
+is linked below.
