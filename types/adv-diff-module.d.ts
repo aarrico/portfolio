@@ -1,5 +1,5 @@
 // Ambient type declaration for the Emscripten-emitted ES module at
-// /public/adv-diff/adv-diff.js. Mirrors the C signature:
+// lib/advection-diffusion/wasm-glue.js. Mirrors the C signature:
 //
 //   AdvectionDiffusionSim* sim_create(int MM, double tmax, double dtout,
 //                                     double factor, double a, double b,
@@ -26,8 +26,3 @@ export interface AdvDiffModule {
   _sim_get_u_ptr: (ptr: number) => number;
 }
 
-declare module "/adv-diff/adv-diff.js" {
-  export default function createAdvDiffModule(
-    moduleArg?: Partial<AdvDiffModule> & { locateFile?: (p: string) => string },
-  ): Promise<AdvDiffModule>;
-}
