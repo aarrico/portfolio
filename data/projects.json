@@ -11,5 +11,18 @@
     "featured": true,
     "order": 1,
     "date": "2026-05"
+  },
+  {
+    "slug": "advection-diffusion",
+    "title": "Advection-Diffusion Solver",
+    "blurb": "1D PDE solver from grad school, running in the browser via WebAssembly. Watch the math move.",
+    "tags": ["Fortran", "WebAssembly", "Numerical Methods", "Canvas"],
+    "thumbnail": "/images/projects/advection-diffusion.png",
+    "links": {
+      "repo": "https://github.com/aarrico/advection-diffusion"
+    },
+    "featured": true,
+    "order": 2,
+    "date": "2026-05"
   }
 ]

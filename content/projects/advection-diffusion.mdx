@@ -1,0 +1,42 @@
+import { Playground } from "@/components/advection-diffusion/Playground";
+
+<Playground mode="ambient" />
+
+## The picture
+
+A factory fires off a puff of something out of its chimney. The wind
+catches it and pushes it downwind — that's **advection**. As it drifts,
+the puff smears out into a softer, wider cloud — that's **diffusion**.
+Almost every "stuff is moving through a medium" problem in engineering
+is some mix of these two: smokestack plumes, dye in a stream, heat in a
+metal bar, pollutants in a river.
+
+The curve underneath the scene is the same story stripped to numbers:
+the concentration U at each position x. The pulse drifts right and
+flattens at the same time.
+
+<Playground mode="interactive" />
+
+## The scheme
+
+The solver is an explicit finite-volume scheme on a 1D grid. Upwind
+flux for the advection term, central difference for diffusion. There's only about
+fifty lines of math; the rest is bookkeeping.
+
+## The CFL condition
+
+Explicit schemes are stable only when the timestep is small relative
+to how fast information moves across a cell — `dt ≤ 1 / (v/dx + 2D/dx²)`.
+The **Blow-up** preset deliberately busts that bound. The plume turns
+into garbage within a few steps and the canvas freezes on the first
+non-finite value. That's not a bug in the simulation; it's the
+simulation telling you it's no longer simulating anything.
+
+## The port
+
+The original Fortran 90 code is from 2014 (from a numerical methods course in grad school). To run it in a
+browser, I had Gemini 3.1 Pro translate the Fortran to C++, then compiled the
+C++ to WebAssembly with Emscripten. The translation is verified
+against a frozen Fortran reference snapshot: the test suite runs each
+preset under WASM and asserts the output matches the Fortran's to
+1e-10. The original Fortran source is linked below.
