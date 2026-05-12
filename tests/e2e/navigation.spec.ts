@@ -10,6 +10,17 @@ test("navigates Home → About → Projects → detail → Resume → Contact", 
   await page.getByRole("link", { name: "Projects" }).click();
   await expect(page).toHaveURL(/\/projects$/);
 
+  await page
+    .getByRole("link", { name: /advection-diffusion solver/i })
+    .first()
+    .click();
+  await expect(page).toHaveURL(/\/projects\/advection-diffusion$/);
+  const windSlider = page.getByLabel(/wind speed/i);
+  await expect(windSlider).toBeVisible();
+  await windSlider.fill("2");
+  await expect(windSlider).toHaveValue("2");
+
+  await page.goBack();
   await page.getByRole("link", { name: /portfolio site/i }).first().click();
   await expect(page).toHaveURL(/\/projects\/portfolio$/);
 
