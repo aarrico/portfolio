@@ -1,0 +1,4 @@
+{
+  "eslint.lintTask.command": "next lint",
+  "eslint.useFlatConfig": true
+}

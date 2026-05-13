@@ -4,7 +4,7 @@
     "title": "Portfolio Site",
     "blurb": "This site itself. Built with Next.js to get exp with it.",
     "tags": ["Next.js", "TypeScript", "Tailwind"],
-    "thumbnail": "/images/projects/portfolio.png",
+    "thumbnail": "/images/projects/portfolio.jpeg",
     "links": {
       "repo": "https://github.com/aarrico/portfolio"
     },
