@@ -29,9 +29,23 @@ export function Playground({ mode }: PlaygroundProps) {
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null);
   const [exploded, setExploded] = useState<boolean>(false);
   const [releaseTick, setReleaseTick] = useState<number>(0);
+  const [uMax, setUMax] = useState<number>(1);
 
   const presetStartRef = useRef<number>(0);
-  const uMaxRef = useRef<number>(1);
+  const explodedRef = useRef<boolean>(false);
+
+  useEffect(() => {
+    explodedRef.current = exploded;
+  }, [exploded]);
+
+  const [prevResetKey, setPrevResetKey] = useState<string>(
+    `${preset}:${releaseTick}`,
+  );
+  const resetKey = `${preset}:${releaseTick}`;
+  if (resetKey !== prevResetKey) {
+    setPrevResetKey(resetKey);
+    setExploded(false);
+  }
 
   const buildParams = useCallback((): SimParams => {
     const base = PRESETS[preset].params;
@@ -46,7 +60,6 @@ export function Playground({ mode }: PlaygroundProps) {
     let raf = 0;
     let sim: Simulation | null = null;
     presetStartRef.current = performance.now();
-    setExploded(false);
 
     (async () => {
       const newSim = await Simulation.create(buildParams());
@@ -61,7 +74,7 @@ export function Playground({ mode }: PlaygroundProps) {
         const val = newSim.u[i] ?? 0;
         if (val > umax) umax = val;
       }
-      uMaxRef.current = Math.max(0.001, umax);
+      setUMax(Math.max(0.001, umax));
 
       const reduced =
         typeof window !== "undefined" &&
@@ -76,7 +89,7 @@ export function Playground({ mode }: PlaygroundProps) {
 
       const loop = (nowMs: number) => {
         if (cancelled || !sim) return;
-        if (playing && !exploded) {
+        if (playing && !explodedRef.current) {
           sim.step();
           let bad = false;
           for (let i = 0; i < sim.u.length; i++) {
@@ -111,7 +124,7 @@ export function Playground({ mode }: PlaygroundProps) {
       cancelAnimationFrame(raf);
       sim?.dispose();
     };
-  }, [buildParams, mode, playing, preset, exploded, releaseTick]);
+  }, [buildParams, mode, playing, preset, releaseTick]);
 
   useEffect(() => {
     const onVis = () => {
@@ -130,7 +143,6 @@ export function Playground({ mode }: PlaygroundProps) {
 
   const handleRelease = () => {
     presetStartRef.current = performance.now();
-    setExploded(false);
     setReleaseTick((t) => t + 1);
   };
 
@@ -140,12 +152,12 @@ export function Playground({ mode }: PlaygroundProps) {
         <>
           <Scene
             snapshot={snapshot}
-            uMax={uMaxRef.current}
+            uMax={uMax}
             className="h-64 w-full rounded-md"
           />
           <Curve
             snapshot={snapshot}
-            uMax={uMaxRef.current}
+            uMax={uMax}
             className="mt-2 h-48 w-full rounded-md"
           />
         </>
