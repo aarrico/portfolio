@@ -14,6 +14,18 @@ export const metadata: Metadata = {
   },
   description:
     "Portfolio of Alexander Arrico — senior software engineer and tech leader.",
+  authors: [{ name: "Alexander Arrico", url: "https://arrico.me" }],
+  creator: "Alexander Arrico",
+  openGraph: {
+      type: "website",
+      siteName: "Alexander Arrico",
+      title: "Alexander Arrico — Software Engineer",
+      description:
+      "Portfolio of Alexander Arrico — senior software engineer and tech leader.",
+      url: "https://arrico.me",
+      locale: "en_US",
+  },
+  robots: { index: true, follow: true }
 };
 
 export default function RootLayout({
