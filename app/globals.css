@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+@plugin "@tailwindcss/typography";
+
+.prose code,
+.prose pre,
+.prose pre code {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.prose code::before,
+.prose code::after {
+  content: none;
+}
+
 @theme {
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);

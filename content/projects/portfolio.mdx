@@ -1,13 +1,41 @@
-## Why I built it
+## Why this site exists
 
-A portfolio that reads as my voice on the web. Doubles as a Next.js skill showcase
-during a job search.
+I needed a portfolio that sounded like me instead of a template, and I needed
+an excuse to ship something real in Next.js 16 while I was job-hunting. So
+the site is the resume *and* the work sample — every page you click on is
+also a thing I'm claiming I can build.
 
-## Stack
+## How it's put together
 
-Next.js 16 App Router, React 19, TypeScript strict, Tailwind v4, MDX, Resend, zod.
+It's a Next.js 16 App Router app on React 19, written in strict TypeScript
+and styled with Tailwind v4. Almost everything is a Server Component;
+the only client-side JavaScript is the contact form and the theme toggle.
+Cache Components is turned on, so most routes render at build time and
+the bundle that ships to the browser is tiny.
 
-## Notes
+Content is split on purpose. Structured data — the resume, the project
+index — lives in plain JSON files under `data/`. The long-form writeups
+for each project are MDX under `content/projects/`. The JSON is the
+source of truth: zod validates it at load time, so a malformed entry
+fails the build instead of rendering a broken page. Keeping the resume
+as JSON also means I can feed it to other tools later (a cover-letter
+generator, an ATS-friendly export) without scraping my own site.
 
-JSON is the source of truth for resume + projects metadata. MDX is reserved for
-the long-form story of each project.
+The contact form is a React Hook Form client component that posts to a
+Server Action. The action re-validates the payload with the same zod
+schema, checks a honeypot field and a minimum time-on-page, then hands
+the message to Resend. No database, no queue, no third-party form
+service.
+
+## The interesting bits
+
+The Advection-Diffusion project on this site embeds a WebAssembly module
+compiled from C++ (converted from Fortran!). Next.js's bundler and `.wasm` files have a difficult
+relationship — Turbopack wants to resolve them statically at build time,
+and the runtime fetch path was fighting the static analysis. The fix
+was to stop shipping a separate `.wasm` file at all: the binary is now
+base64-inlined into a single `adv-diff.js` glue module, so there's
+nothing for the bundler to chase and nothing for the browser to fetch
+on a second request.
+
+The whole thing is hosted on Vercel's free tier and targets $0/month.
