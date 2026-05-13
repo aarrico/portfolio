@@ -3,29 +3,33 @@ import { ThemeProvider } from "next-themes";
 import { geistSans, geistMono, monoton } from "@/lib/fonts";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
+import { getResume } from "@/lib/data";
 import "./globals.css";
 
+const { basics } = getResume();
+const url = basics.links.website;
+const title = `${basics.name} — Software Engineer`;
+const description = `${basics.name} — senior software engineer & tech leader who values software craftsmanship and shipping work he's proud of. Portfolio built with Next.js 16.`;
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://arrico.me"),
+  metadataBase: new URL(url),
   title: {
-    default: "Alexander Arrico — Software Engineer",
-    template: "%s · Alexander Arrico",
+    default: title,
+    template: `%s · ${basics.name}`,
   },
-  description:
-    "Portfolio of Alexander Arrico — senior software engineer and tech leader.",
-  authors: [{ name: "Alexander Arrico", url: "https://arrico.me" }],
-  creator: "Alexander Arrico",
+  description,
+  authors: [{ name: basics.name, url }],
+  creator: basics.name,
   openGraph: {
-      type: "website",
-      siteName: "Alexander Arrico",
-      title: "Alexander Arrico — Software Engineer",
-      description:
-      "Portfolio of Alexander Arrico — senior software engineer and tech leader.",
-      url: "https://arrico.me",
-      locale: "en_US",
+    type: "website",
+    siteName: basics.name,
+    title,
+    description,
+    url,
+    locale: "en_US",
   },
-  robots: { index: true, follow: true }
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
