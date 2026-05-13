@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { InnerPageHeader } from "@/components/aesthetic/InnerPageHeader";
 import { getProjectBySlug, getProjectSlugs } from "@/lib/data";
 import { loadProjectMDX } from "@/lib/mdx";
+import { FaGithub } from "react-icons/fa";
 
 type RouteParams = { params: Promise<{ slug: string }> };
 
@@ -60,7 +61,7 @@ export default async function ProjectDetailPage({ params }: RouteParams) {
         <div className="mt-8 flex gap-4 text-sm">
           {project.links.repo && (
             <a href={project.links.repo} target="_blank" rel="noreferrer" className="hover:text-[color:var(--accent)]">
-              Source ↗
+              <FaGithub size="20" />
             </a>
           )}
           {project.links.demo && (
