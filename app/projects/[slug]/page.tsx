@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { InnerPageHeader } from "@/components/aesthetic/InnerPageHeader";
@@ -34,7 +34,7 @@ export default async function ProjectDetailPage({ params }: RouteParams) {
     <>
       <InnerPageHeader title={project.title.toUpperCase()} eyebrow={project.date} />
       <article className="mx-auto max-w-3xl px-4 py-12">
-        <div className="relative aspect-video overflow-hidden rounded-md">
+        {/* <div className="relative aspect-video overflow-hidden rounded-md">
           <Image
             src={project.thumbnail}
             alt={`${project.title} screenshot`}
@@ -43,7 +43,7 @@ export default async function ProjectDetailPage({ params }: RouteParams) {
             className="object-cover"
             priority
           />
-        </div>
+        </div> */}
         <ul className="mt-4 flex flex-wrap gap-2">
           {project.tags.map((tag) => (
             <li

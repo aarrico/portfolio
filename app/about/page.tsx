@@ -4,7 +4,7 @@ import { getResume } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "About Alexander Arrico — software engineer in Los Angeles.",
+  description: "About Alexander Arrico — senior software engineer and tech leader.",
 };
 
 export default function AboutPage() {

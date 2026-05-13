@@ -3,6 +3,7 @@ import { ThemeProvider } from "next-themes";
 import { geistSans, geistMono, monoton } from "@/lib/fonts";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next"
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
     template: "%s · Alexander Arrico",
   },
   description:
-    "Portfolio of Alexander Arrico — software engineer in Los Angeles.",
+    "Portfolio of Alexander Arrico — senior software engineer and tech leader.",
 };
 
 export default function RootLayout({
@@ -37,6 +38,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
         </ThemeProvider>
+        <Analytics/>
       </body>
     </html>
   );

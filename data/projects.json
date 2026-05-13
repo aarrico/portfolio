@@ -2,7 +2,7 @@
   {
     "slug": "portfolio",
     "title": "Portfolio Site",
-    "blurb": "This site. Next.js 16, MDX, retrowave aesthetic.",
+    "blurb": "This site itself. Built with Next.js to get exp with it.",
     "tags": ["Next.js", "TypeScript", "Tailwind"],
     "thumbnail": "/images/projects/portfolio.png",
     "links": {
@@ -17,7 +17,7 @@
     "title": "Advection-Diffusion Solver",
     "blurb": "1D PDE solver from grad school, running in the browser via WebAssembly. Watch the math move.",
     "tags": ["Fortran", "WebAssembly", "Numerical Methods", "Canvas"],
-    "thumbnail": "/images/projects/advection-diffusion.png",
+    "thumbnail": "/images/projects/advection-diffusion.gif",
     "links": {
       "repo": "https://github.com/aarrico/advection-diffusion"
     },

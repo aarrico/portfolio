@@ -1,6 +1,6 @@
 import type { AdvDiffModule } from "@/types/adv-diff-module";
 import type { SimParams } from "./types";
-import createAdvDiffModule from "./wasm-glue.js";
+import createAdvDiffModule from "../../public/adv-diff/wasm-glue";
 
 const isNodeLike =
   typeof process !== "undefined" && !!process.versions?.node;

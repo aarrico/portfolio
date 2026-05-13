@@ -11,7 +11,7 @@ export function InnerPageHeader({ title, eyebrow }: InnerPageHeaderProps) {
   return (
     <GradientSky className="h-[140px] sm:h-[160px]">
       <div className="absolute inset-0 flex items-center justify-center">
-        <Sun size={56} withGlow={false} className="absolute right-12 top-6 opacity-90" />
+        <Sun size={100} withGlow={false} className="absolute right-12 bottom-1 opacity-90" />
         <div className="text-[color:var(--gradient-stop-5)] mix-blend-screen pointer-events-none absolute bottom-0 left-0">
           <Palm side="left" height={120} />
         </div>
