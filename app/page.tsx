@@ -11,15 +11,12 @@ export default function HomePage() {
   const featured = getFeaturedProjects();
   const { basics, summary } = getResume();
 
-  // Hero subline: prefer an intentional `headline`; otherwise fall back to
-  // the first sentence of summary so a long bio doesn't crowd the hero.
   const tagline =
     basics.headline?.trim() || summary.split(/(?<=\.)\s+/)[0] || "";
 
   return (
     <>
       <GradientSky className="relative h-[80vh] min-h-[560px] w-full">
-        {/* upper-sky stars */}
         <div className="absolute inset-x-0 top-0 h-[55%] opacity-70">
           <Starfield />
         </div>
@@ -34,7 +31,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* perspective grid floor — brighter, denser, scanning */}
         <div
           className="absolute inset-x-0 top-[58%] bottom-0 text-[color:var(--gradient-stop-3)]"
           style={{ opacity: 0.72 }}
@@ -42,7 +38,6 @@ export default function HomePage() {
           <GridFloor height={300} />
         </div>
 
-        {/* palm cluster */}
         <div className="pointer-events-none absolute bottom-0 left-0 text-[color:var(--gradient-stop-1)]">
           <div className="absolute -left-6 bottom-0 opacity-90">
             <Palm side="left" height={300} />
@@ -128,7 +123,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* hover styling for the buttons — kept in a style block to avoid client component */}
         <style>{`
           .hero-button {
             color: var(--color-gold);

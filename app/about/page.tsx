@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   const { basics, summary, skills } = getResume();
+  
   return (
     <>
       <InnerPageHeader title="ABOUT" eyebrow={basics.location} />
