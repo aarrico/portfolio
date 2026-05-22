@@ -1,5 +1,5 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { getResume } from "@/lib/data";
+import { getResume } from "@/lib/resume";
 
 type SocialLinksProps = {
   direction?: "horizontal" | "vertical";

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { InnerPageHeader } from "@/components/aesthetic/InnerPageHeader";
 import { ProjectCard } from "@/components/ProjectCard";
-import { getProjects } from "@/lib/data";
+import { listProjects } from "@/lib/projects";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function ProjectsPage() {
-  const projects = getProjects();
+  const projects = listProjects();
   return (
     <>
       <InnerPageHeader title="PROJECTS" />

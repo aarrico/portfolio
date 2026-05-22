@@ -5,10 +5,11 @@ import { Palm } from "@/components/aesthetic/Palm";
 import { GridFloor } from "@/components/aesthetic/GridFloor";
 import { Starfield } from "@/components/aesthetic/Starfield";
 import { ProjectCard } from "@/components/ProjectCard";
-import { getFeaturedProjects, getResume } from "@/lib/data";
+import { listFeaturedProjects } from "@/lib/projects";
+import { getResume } from "@/lib/resume";
 
 export default function HomePage() {
-  const featured = getFeaturedProjects();
+  const featured = listFeaturedProjects();
   const { basics, summary } = getResume();
 
   const tagline =
@@ -147,7 +148,10 @@ export default function HomePage() {
       <section className="mx-auto max-w-5xl px-4 py-16">
         <div className="mb-8 flex items-baseline justify-between">
           <h2 className="font-display text-2xl tracking-widest">FEATURED</h2>
-          <Link href="/projects" className="text-sm hover:text-[color:var(--accent)]">
+          <Link
+            href="/projects"
+            className="text-sm hover:text-[color:var(--accent)]"
+          >
             All projects →
           </Link>
         </div>

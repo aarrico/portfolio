@@ -1,22 +1,29 @@
 import type { Metadata } from "next";
 import { InnerPageHeader } from "@/components/aesthetic/InnerPageHeader";
-import { getResume } from "@/lib/data";
+import { loadAboutSection } from "@/lib/about";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "About Alexander Arrico — senior software engineer and tech leader.",
+  description:
+    "About Alexander Arrico — senior software engineer and tech leader.",
 };
 
+const BiographyBody = await loadAboutSection("biography");
+
 export default function AboutPage() {
-  const { basics, summary, skills } = getResume();
-  
   return (
     <>
-      <InnerPageHeader title="ABOUT" eyebrow={basics.location} />
+      <InnerPageHeader title="ABOUT" />
       <article className="mx-auto max-w-3xl px-4 py-12">
-        <p className="text-lg leading-relaxed">{summary}</p>
-        <h2 className="mt-12 font-display text-xl tracking-widest">SKILLS</h2>
-        <div className="mt-4 grid gap-6 sm:grid-cols-2">
+        <div className="prose prose-invert mt-8 max-w-none">
+          <BiographyBody />
+        </div>
+      </article>
+    </>
+  );
+}
+
+/* <div className="mt-4 grid gap-6 sm:grid-cols-2">
           {skills.map((group) => (
             <div key={group.category}>
               <h3 className="font-sans text-sm font-semibold uppercase tracking-wide opacity-70">
@@ -34,8 +41,4 @@ export default function AboutPage() {
               </ul>
             </div>
           ))}
-        </div>
-      </article>
-    </>
-  );
-}
+        </div> */

@@ -1,7 +1,6 @@
 "use server";
 
-import { ContactSchema } from "@/lib/contact-schema";
-import { getResend } from "@/lib/resend";
+import { ContactSchema, getEmailClient } from "@/lib/contact";
 
 const MIN_TIME_ON_PAGE_MS = 3000;
 
@@ -35,7 +34,7 @@ export async function sendContact(formData: FormData): Promise<ContactResult> {
   // Inspect `error` explicitly; otherwise misconfigurations (unverified domain,
   // bad API key, etc.) silently report success while no email is sent.
   const idempotencyKey = `contact-form/${parsed.data.startedAt}-${parsed.data.email}`;
-  const { data, error } = await getResend().emails.send(
+  const { data, error } = await getEmailClient().emails.send(
     {
       to,
       from,

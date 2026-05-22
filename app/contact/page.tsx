@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { InnerPageHeader } from "@/components/aesthetic/InnerPageHeader";
 import { ContactForm } from "@/components/ContactForm";
-import { getResume } from "@/lib/data";
+import { getResume } from "@/lib/resume";
 import { SocialLinks } from "@/components/SocialLinks";
 
 export const metadata: Metadata = {

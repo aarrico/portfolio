@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { InnerPageHeader } from "@/components/aesthetic/InnerPageHeader";
-import { getResume } from "@/lib/data";
+import { getResume } from "@/lib/resume";
 
 export const metadata: Metadata = {
   title: "Resume",

@@ -1,6 +1,9 @@
+import resumeJson from "@/data/resume.json";
 import { z } from "zod";
 
-const yearMonth = z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/, "expected YYYY-MM");
+const yearMonth = z
+  .string()
+  .regex(/^\d{4}-(0[1-9]|1[0-2])$/, "expected YYYY-MM");
 
 export const ResumeSchema = z.object({
   basics: z.object({
@@ -45,32 +48,10 @@ export const ResumeSchema = z.object({
   projects: z.array(z.string().min(1)).optional(),
 });
 
-export const ProjectSchema = z.object({
-  slug: z.string().regex(/^[a-z0-9-]+$/, "kebab-case slug"),
-  title: z.string().min(1),
-  blurb: z.string().min(1),
-  tags: z.array(z.string().min(1)),
-  thumbnail: z.string().regex(/^\//, "must be absolute path under /public"),
-  links: z.object({
-    repo: z.string().url().optional(),
-    demo: z.string().url().optional(),
-  }),
-  featured: z.boolean(),
-  order: z.number().int(),
-  date: yearMonth,
-});
+export type Resume = z.infer<typeof ResumeSchema>;
 
-export const ProjectsSchema = z
-  .array(ProjectSchema)
-  .superRefine((projects, ctx) => {
-    const slugs = new Set<string>();
-    for (const p of projects) {
-      if (slugs.has(p.slug)) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: `duplicate slug: ${p.slug}`,
-        });
-      }
-      slugs.add(p.slug);
-    }
-  });
+const RESUME: Resume = ResumeSchema.parse(resumeJson);
+
+export function getResume(): Resume {
+  return RESUME;
+}
