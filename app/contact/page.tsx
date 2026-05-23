@@ -15,7 +15,6 @@ export default function ContactPage() {
     <>
       <InnerPageHeader title="CONTACT" />
       <section className="mx-auto max-w-md px-4 py-12">
-        {/* Direct block — centered */}
         <div className="flex flex-col items-center text-center">
           <h2 className="font-display text-xl tracking-widest">DIRECT</h2>
           <a
@@ -29,7 +28,6 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* Separator */}
         <div
           className="my-10 flex items-center gap-4 text-xs uppercase tracking-[0.3em] opacity-60"
           aria-hidden="true"
@@ -39,7 +37,6 @@ export default function ContactPage() {
           <span className="h-px flex-1 bg-[color:var(--fg)]/20" />
         </div>
 
-        {/* Form block — centered heading, full-width form below */}
         <div>
           <h2 className="text-center font-display text-xl tracking-widest">
             FORM

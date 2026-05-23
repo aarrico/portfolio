@@ -58,7 +58,7 @@ export function Sun({
         mask="url(#sun-mask)"
       />
 
-      {/* refined inner ring — barely visible, adds depth */}
+      {/* refined inner ring — adds depth */}
       <circle
         cx="100"
         cy="100"

@@ -31,8 +31,6 @@ export async function sendContact(formData: FormData): Promise<ContactResult> {
   }
 
   // Resend's SDK does NOT throw on API errors — it returns { data, error }.
-  // Inspect `error` explicitly; otherwise misconfigurations (unverified domain,
-  // bad API key, etc.) silently report success while no email is sent.
   const idempotencyKey = `contact-form/${parsed.data.startedAt}-${parsed.data.email}`;
   const { data, error } = await getEmailClient().emails.send(
     {

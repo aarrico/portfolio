@@ -8,9 +8,9 @@ export const metadata: Metadata = {
     "About Alexander Arrico — senior software engineer and tech leader.",
 };
 
-const BiographyBody = await loadAboutSection("biography");
+export default async function AboutPage() {
+  const BiographyBody = await loadAboutSection("biography");
 
-export default function AboutPage() {
   return (
     <>
       <InnerPageHeader title="ABOUT" />

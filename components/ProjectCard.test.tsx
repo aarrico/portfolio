@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { ProjectCard } from "./ProjectCard";
-import type { Project } from "@/lib/types";
+import type { Project } from "@/lib/projects";
 
 const project: Project = {
   slug: "demo",

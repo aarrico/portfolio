@@ -3,11 +3,6 @@ type GridFloorProps = {
   height?: number;
 };
 
-/**
- * Refined perspective grid receding to a vanishing point on the horizon.
- * Lines fade with distance via a radial mask. Uses currentColor so the
- * caller controls hue/opacity per theme.
- */
 export function GridFloor({ className, height = 220 }: GridFloorProps) {
   const cols = 21; // odd so a line passes through the vanishing point
   const horizonY = 0;
@@ -23,7 +18,6 @@ export function GridFloor({ className, height = 220 }: GridFloorProps) {
   });
 
   // Horizontal lines spaced by perspective: y = horizon + h * (n / (n + k))^2
-  // 18 receding lines — denser, more defined floor.
   const ROWS = 18;
   const rows = Array.from({ length: ROWS }, (_, i) => {
     const n = i + 1;

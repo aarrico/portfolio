@@ -1,7 +1,12 @@
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, it, expect } from "vitest";
-import { listProjects, listFeaturedProjects, getProject } from "./projects";
+import {
+  ProjectsSchema,
+  listProjects,
+  listFeaturedProjects,
+  getProject,
+} from "./projects";
 
 describe("listProjects", () => {
   it("returns projects sorted by order ascending", () => {
@@ -26,6 +31,28 @@ describe("getProject", () => {
 
   it("returns null for unknown slug", () => {
     expect(getProject("does-not-exist")).toBeNull();
+  });
+});
+
+describe("ProjectsSchema", () => {
+  const project = {
+    slug: "demo",
+    title: "Demo",
+    blurb: "A demo project.",
+    tags: ["TypeScript"],
+    thumbnail: "/images/projects/demo.png",
+    links: { repo: "https://github.com/x/y" },
+    featured: true,
+    order: 1,
+    date: "2025-01",
+  };
+
+  it("accepts a valid project list", () => {
+    expect(ProjectsSchema.parse([project])).toEqual([project]);
+  });
+
+  it("rejects duplicate slugs", () => {
+    expect(() => ProjectsSchema.parse([project, project])).toThrow();
   });
 });
 

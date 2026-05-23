@@ -1,4 +1,5 @@
 import projectsJson from "@/data/projects.json";
+import { notFound } from "next/navigation";
 import { z } from "zod";
 import type { ComponentType } from "react";
 
@@ -21,7 +22,7 @@ const ProjectSchema = z.object({
   date: yearMonth,
 });
 
-const ProjectsSchema = z.array(ProjectSchema).superRefine((projects, ctx) => {
+export const ProjectsSchema = z.array(ProjectSchema).superRefine((projects, ctx) => {
   const slugs = new Set<string>();
   for (const p of projects) {
     if (slugs.has(p.slug)) {
@@ -55,6 +56,10 @@ export function getProject(slug: string): Project | null {
 }
 
 export async function loadProjectBody(slug: string): Promise<ComponentType> {
-  const body = await import(`@/content/projects/${slug}.mdx`);
-  return body.default;
+  try {
+    const body = await import(`@/content/projects/${slug}.mdx`);
+    return body.default;
+  } catch {
+    notFound();
+  }
 }
