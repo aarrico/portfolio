@@ -22,7 +22,10 @@ export default function HomePage() {
   return (
     <main className="flex-1">
       <GradientSky className="relative h-[80vh] min-h-140 w-full">
-        <div className="absolute right-4 top-4 z-20">
+        <div
+          className="absolute right-4 top-4 z-20"
+          style={{ color: "var(--color-gold)" }}
+        >
           <ThemeToggle />
         </div>
 
