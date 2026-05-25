@@ -41,6 +41,7 @@ describe("ProjectsSchema", () => {
     blurb: "A demo project.",
     tags: ["TypeScript"],
     thumbnail: "/images/projects/demo.png",
+    thumbnailKind: "image" as const,
     links: { repo: "https://github.com/x/y" },
     featured: true,
     order: 1,

@@ -1,4 +1,8 @@
 import type { MDXComponents } from 'mdx/types'
+import { PullQuote } from '@/components/about/PullQuote'
+import { Era } from '@/components/about/Era'
+import { InterestGrid } from '@/components/about/InterestGrid'
+import { InterestCard } from '@/components/about/InterestCard'
 
 const components: MDXComponents = {
   code: ({ className, ...props }) => (
@@ -13,6 +17,10 @@ const components: MDXComponents = {
       {...props}
     />
   ),
+  PullQuote,
+  Era,
+  InterestGrid,
+  InterestCard,
 }
 
 export function useMDXComponents(): MDXComponents {

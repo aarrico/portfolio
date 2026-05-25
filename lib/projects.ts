@@ -7,20 +7,29 @@ const yearMonth = z
   .string()
   .regex(/^\d{4}-(0[1-9]|1[0-2])$/, "expected YYYY-MM");
 
-const ProjectSchema = z.object({
-  slug: z.string().regex(/^[a-z0-9-]+$/, "kebab-case slug"),
-  title: z.string().min(1),
-  blurb: z.string().min(1),
-  tags: z.array(z.string().min(1)),
-  thumbnail: z.string().regex(/^\//, "must be absolute path under /public"),
-  links: z.object({
-    repo: z.string().url().optional(),
-    demo: z.string().url().optional(),
-  }),
-  featured: z.boolean(),
-  order: z.number().int(),
-  date: yearMonth,
-});
+const ProjectSchema = z
+  .object({
+    slug: z.string().regex(/^[a-z0-9-]+$/, "kebab-case slug"),
+    title: z.string().min(1),
+    blurb: z.string().min(1),
+    tags: z.array(z.string().min(1)),
+    thumbnail: z
+      .string()
+      .regex(/^\//, "must be absolute path under /public")
+      .optional(),
+    thumbnailKind: z.enum(["image", "site-preview"]).optional().default("image"),
+    links: z.object({
+      repo: z.string().url().optional(),
+      demo: z.string().url().optional(),
+    }),
+    featured: z.boolean(),
+    order: z.number().int(),
+    date: yearMonth,
+  })
+  .refine((p) => p.thumbnailKind === "site-preview" || !!p.thumbnail, {
+    message: "thumbnail is required when thumbnailKind is 'image'",
+    path: ["thumbnail"],
+  });
 
 export const ProjectsSchema = z.array(ProjectSchema).superRefine((projects, ctx) => {
   const slugs = new Set<string>();

@@ -9,6 +9,7 @@ const project: Project = {
   blurb: "A demo blurb.",
   tags: ["TypeScript", "React"],
   thumbnail: "/images/projects/demo.png",
+  thumbnailKind: "image",
   links: { repo: "https://github.com/x/y" },
   featured: true,
   order: 1,

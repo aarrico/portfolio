@@ -32,10 +32,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div
-          className="absolute inset-x-0 top-[58%] bottom-0 text-[color:var(--gradient-stop-3)]"
-          style={{ opacity: 0.72 }}
-        >
+        <div className="absolute inset-x-0 top-[58%] bottom-0 text-[color:var(--accent)]">
           <GridFloor height={300} />
         </div>
 
