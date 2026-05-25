@@ -46,7 +46,7 @@ export default async function ProjectDetailPage({ params }: RouteParams) {
             </li>
           ))}
         </ul>
-        <div className="prose prose-invert mt-8 max-w-none">
+        <div className="prose prose-theme mt-8 max-w-none">
           <Body />
         </div>
         <div className="mt-8 flex gap-4 text-sm">

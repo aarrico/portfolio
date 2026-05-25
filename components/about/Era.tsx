@@ -30,7 +30,7 @@ export function Era({ year, labels, children }: EraProps) {
             ))}
           </ul>
         </aside>
-        <div className="prose prose-invert max-w-none">{children}</div>
+        <div className="prose prose-theme max-w-none">{children}</div>
       </div>
     </div>
   );

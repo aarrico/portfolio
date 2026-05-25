@@ -1,4 +1,5 @@
 {
   "eslint.lintTask.command": "next lint",
-  "eslint.useFlatConfig": true
+  "eslint.useFlatConfig": true,
+  "css.lint.unknownAtRules": "ignore"
 }

@@ -1,19 +1,19 @@
 import { Geist, Geist_Mono, Monoton } from "next/font/google";
 
 export const geistSans = Geist({
-  variable: "--font-sans",
+  variable: "--font-geist-sans",
   subsets: ["latin"],
   display: "swap",
 });
 
 export const geistMono = Geist_Mono({
-  variable: "--font-mono",
+  variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
 });
 
 export const monoton = Monoton({
-  variable: "--font-display",
+  variable: "--font-monoton",
   weight: "400",
   subsets: ["latin"],
   display: "swap",

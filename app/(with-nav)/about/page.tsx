@@ -81,7 +81,7 @@ export default async function AboutPage() {
             id="inspiration-heading"
             title="Inspiration"
           />
-          <div className="prose prose-invert max-w-none">
+          <div className="prose prose-theme max-w-none">
             <InspirationBody />
           </div>
         </section>
@@ -94,7 +94,7 @@ export default async function AboutPage() {
           className="scroll-mt-24"
         >
           <SectionHeading number="02" id="career-heading" title="Career" />
-          <div className="prose prose-invert max-w-none">
+          <div className="prose prose-theme max-w-none">
             <CareerBody />
           </div>
         </section>
@@ -111,7 +111,7 @@ export default async function AboutPage() {
             id="interests-heading"
             title="Interests"
           />
-          <div className="prose prose-invert max-w-none">
+          <div className="prose prose-theme max-w-none">
             <InterestsBody />
           </div>
         </section>

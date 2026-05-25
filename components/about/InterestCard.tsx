@@ -46,7 +46,7 @@ export function InterestCard({
       <h4 className="mt-4 font-mono text-xs uppercase tracking-[0.22em] text-[color:var(--accent)]">
         {title}
       </h4>
-      <div className="prose prose-invert mt-2 max-w-none text-[0.95rem] leading-relaxed">
+      <div className="prose prose-theme mt-2 max-w-none text-[0.95rem] leading-relaxed">
         {children}
       </div>
     </article>
