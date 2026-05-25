@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { geistSans, geistMono, monoton } from "@/lib/fonts";
-import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import { getResume } from "@/lib/resume";
@@ -51,8 +50,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange={false}
         >
-          <Nav />
-          <main className="flex-1">{children}</main>
+          {children}
           <Footer />
         </ThemeProvider>
         <Analytics />

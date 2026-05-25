@@ -16,7 +16,7 @@ export default function HomePage() {
     basics.headline?.trim() || summary.split(/(?<=\.)\s+/)[0] || "";
 
   return (
-    <>
+    <main className="flex-1">
       <GradientSky className="relative h-[80vh] min-h-[560px] w-full">
         <div className="absolute inset-x-0 top-0 h-[55%] opacity-70">
           <Starfield />
@@ -27,8 +27,10 @@ export default function HomePage() {
             animation — keeping layout independent of motion so reduced-motion
             users still see a centered sun. */}
         <div className="absolute left-1/2 top-[6%] -translate-x-1/2">
-          <div className="sun-rise">
-            <Sun size={360} />
+          <div className="origin-top scale-[0.65] sm:scale-100">
+            <div className="sun-rise">
+              <Sun size={360} />
+            </div>
           </div>
         </div>
 
@@ -40,7 +42,7 @@ export default function HomePage() {
           <div className="absolute -left-6 bottom-0 opacity-90">
             <Palm side="left" height={300} />
           </div>
-          <div className="absolute left-16 bottom-0 opacity-100">
+          <div className="absolute left-16 bottom-0 hidden opacity-100 sm:block">
             <Palm side="left" height={360} />
           </div>
         </div>
@@ -48,7 +50,7 @@ export default function HomePage() {
           <div className="absolute -right-6 bottom-0 opacity-90">
             <Palm side="right" height={300} />
           </div>
-          <div className="absolute right-16 bottom-0 opacity-100">
+          <div className="absolute right-16 bottom-0 hidden opacity-100 sm:block">
             <Palm side="right" height={360} />
           </div>
         </div>
@@ -102,9 +104,15 @@ export default function HomePage() {
               </p>
             )}
             <div
-              className="hero-rise mt-6 flex justify-center gap-4"
+              className="hero-rise mt-6 flex flex-wrap justify-center gap-3 sm:gap-4"
               style={{ animationDelay: "950ms" }}
             >
+              <Link
+                href="/about"
+                className="hero-button rounded-sm border px-4 py-2 text-sm font-medium"
+              >
+                About
+              </Link>
               <Link
                 href="/projects"
                 className="hero-button rounded-sm border px-4 py-2 text-sm font-medium"
@@ -116,6 +124,12 @@ export default function HomePage() {
                 className="hero-button rounded-sm border px-4 py-2 text-sm font-medium"
               >
                 Resume
+              </Link>
+              <Link
+                href="/contact"
+                className="hero-button rounded-sm border px-4 py-2 text-sm font-medium"
+              >
+                Contact
               </Link>
             </div>
           </div>
@@ -158,6 +172,6 @@ export default function HomePage() {
           ))}
         </div>
       </section>
-    </>
+    </main>
   );
 }

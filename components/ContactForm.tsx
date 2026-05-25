@@ -4,7 +4,10 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { sendContact, type ContactResult } from "@/app/contact/actions";
+import {
+  sendContact,
+  type ContactResult,
+} from "@/app/(with-nav)/contact/actions";
 
 const ClientSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),

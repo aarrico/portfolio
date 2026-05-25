@@ -1,8 +1,6 @@
 import Link from "next/link";
-// import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
-  { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/projects", label: "Projects" },
   { href: "/resume", label: "Resume" },
@@ -12,12 +10,12 @@ const links = [
 export function Nav() {
   return (
     <header className="border-b border-[color:var(--fg)]/10">
-      <nav className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
+      <nav className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-4">
         <Link href="/" className="font-display text-lg tracking-widest">
           ARRICO
         </Link>
-        <ul className="hidden gap-6 sm:flex">
-          {links.slice(1).map((l) => (
+        <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 sm:gap-x-6">
+          {links.map((l) => (
             <li key={l.href}>
               <Link
                 href={l.href}
@@ -28,7 +26,6 @@ export function Nav() {
             </li>
           ))}
         </ul>
-        {/* <ThemeToggle /> */}
       </nav>
     </header>
   );
