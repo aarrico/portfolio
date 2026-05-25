@@ -8,7 +8,12 @@ type InterestCardProps = {
   children: ReactNode;
 };
 
-export function InterestCard({ image, alt, title, children }: InterestCardProps) {
+export function InterestCard({
+  image,
+  alt,
+  title,
+  children,
+}: InterestCardProps) {
   const initials = title
     .split(/\s+/)
     .map((word) => word[0])

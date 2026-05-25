@@ -47,7 +47,13 @@ export function Sun({
       </defs>
 
       {withGlow && (
-        <circle cx="100" cy="100" r="96" fill="url(#sun-glow)" className="sun-glow" />
+        <circle
+          cx="100"
+          cy="100"
+          r="96"
+          fill="url(#sun-glow)"
+          className="sun-glow"
+        />
       )}
 
       <circle

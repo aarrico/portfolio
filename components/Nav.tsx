@@ -19,7 +19,10 @@ export function Nav() {
         <ul className="hidden gap-6 sm:flex">
           {links.slice(1).map((l) => (
             <li key={l.href}>
-              <Link href={l.href} className="text-sm hover:text-[color:var(--accent)]">
+              <Link
+                href={l.href}
+                className="text-sm hover:text-[color:var(--accent)]"
+              >
                 {l.label}
               </Link>
             </li>

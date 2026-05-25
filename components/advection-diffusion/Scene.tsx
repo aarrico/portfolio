@@ -42,7 +42,12 @@ export function Scene({ snapshot, uMax, className }: SceneProps) {
     const stackTopY = cssH * 0.45;
     const stackW = 18;
     ctx.fillStyle = "#3a2a4a";
-    ctx.fillRect(stackX - stackW / 2, stackTopY, stackW, stackBaseY - stackTopY);
+    ctx.fillRect(
+      stackX - stackW / 2,
+      stackTopY,
+      stackW,
+      stackBaseY - stackTopY,
+    );
     ctx.fillStyle = "#4a3a5a";
     ctx.fillRect(stackX - stackW / 2 - 2, stackTopY - 6, stackW + 4, 6);
 
@@ -77,10 +82,7 @@ export function Scene({ snapshot, uMax, className }: SceneProps) {
     lastTimeRef.current = snapshot.t;
 
     const particles = particlesRef.current;
-    const stackIntensity = Math.max(
-      0,
-      Math.min(1, (u[0] ?? 0) / (uMax || 1)),
-    );
+    const stackIntensity = Math.max(0, Math.min(1, (u[0] ?? 0) / (uMax || 1)));
     const emitCount = Math.floor(dt * 80 * stackIntensity);
     for (let k = 0; k < emitCount; k++) {
       particles.push({

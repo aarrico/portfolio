@@ -17,7 +17,10 @@ const ProjectSchema = z
       .string()
       .regex(/^\//, "must be absolute path under /public")
       .optional(),
-    thumbnailKind: z.enum(["image", "site-preview"]).optional().default("image"),
+    thumbnailKind: z
+      .enum(["image", "site-preview"])
+      .optional()
+      .default("image"),
     links: z.object({
       repo: z.string().url().optional(),
       demo: z.string().url().optional(),
@@ -31,18 +34,20 @@ const ProjectSchema = z
     path: ["thumbnail"],
   });
 
-export const ProjectsSchema = z.array(ProjectSchema).superRefine((projects, ctx) => {
-  const slugs = new Set<string>();
-  for (const p of projects) {
-    if (slugs.has(p.slug)) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: `duplicate slug: ${p.slug}`,
-      });
+export const ProjectsSchema = z
+  .array(ProjectSchema)
+  .superRefine((projects, ctx) => {
+    const slugs = new Set<string>();
+    for (const p of projects) {
+      if (slugs.has(p.slug)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `duplicate slug: ${p.slug}`,
+        });
+      }
+      slugs.add(p.slug);
     }
-    slugs.add(p.slug);
-  }
-});
+  });
 
 export type Project = z.infer<typeof ProjectSchema>;
 export type Projects = z.infer<typeof ProjectsSchema>;
