@@ -4,7 +4,7 @@ import { geistSans, geistMono, monoton } from "@/lib/fonts";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
-import { getResume } from "@/lib/data";
+import { getResume } from "@/lib/resume";
 import "./globals.css";
 
 const { basics } = getResume();
@@ -41,6 +41,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} ${monoton.variable}`}
     >
       <body className="min-h-dvh flex flex-col">
@@ -54,7 +55,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
         </ThemeProvider>
-        <Analytics/>
+        <Analytics />
       </body>
     </html>
   );

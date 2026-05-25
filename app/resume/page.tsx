@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { InnerPageHeader } from "@/components/aesthetic/InnerPageHeader";
-import { getResume } from "@/lib/data";
+import { getResume } from "@/lib/resume";
 
 export const metadata: Metadata = {
   title: "Resume",
@@ -20,7 +20,9 @@ export default function ResumePage() {
       <article className="mx-auto max-w-3xl px-4 py-12">
         <header className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h2 className="font-display text-2xl tracking-widest">{basics.name}</h2>
+            <h2 className="font-display text-2xl tracking-widest">
+              {basics.name}
+            </h2>
             <p className="text-sm opacity-80">
               {basics.title} · {basics.location}
             </p>
@@ -62,7 +64,10 @@ export default function ResumePage() {
           <h3 className="font-display text-lg tracking-widest">EDUCATION</h3>
           <ul className="mt-4 space-y-3">
             {education.map((e) => (
-              <li key={e.school} className="flex flex-wrap items-baseline justify-between gap-2">
+              <li
+                key={e.school}
+                className="flex flex-wrap items-baseline justify-between gap-2"
+              >
                 <p>
                   <span className="font-semibold">{e.degree}</span> · {e.school}
                 </p>
@@ -79,7 +84,9 @@ export default function ResumePage() {
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             {skills.map((g) => (
               <div key={g.category}>
-                <p className="text-sm font-semibold uppercase opacity-70">{g.category}</p>
+                <p className="text-sm font-semibold uppercase opacity-70">
+                  {g.category}
+                </p>
                 <p className="mt-1 text-sm">{g.items.join(" · ")}</p>
               </div>
             ))}

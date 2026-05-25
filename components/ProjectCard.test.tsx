@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { ProjectCard } from "./ProjectCard";
-import type { Project } from "@/lib/types";
+import type { Project } from "@/lib/projects";
 
 const project: Project = {
   slug: "demo",
@@ -9,6 +9,7 @@ const project: Project = {
   blurb: "A demo blurb.",
   tags: ["TypeScript", "React"],
   thumbnail: "/images/projects/demo.png",
+  thumbnailKind: "image",
   links: { repo: "https://github.com/x/y" },
   featured: true,
   order: 1,

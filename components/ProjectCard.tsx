@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { Project } from "@/lib/types";
+import type { Project } from "@/lib/projects";
+import { SitePreview } from "@/components/SitePreview";
 
 type ProjectCardProps = {
   project: Project;
@@ -13,13 +14,17 @@ export function ProjectCard({ project }: ProjectCardProps) {
       className="group relative block overflow-hidden rounded-md border border-[color:var(--fg)]/10 bg-[color:var(--bg)] p-4 transition hover:border-[color:var(--accent)]"
     >
       <div className="relative aspect-video overflow-hidden rounded-sm">
-        <Image
-          src={project.thumbnail}
-          alt={`${project.title} screenshot`}
-          fill
-          sizes="(min-width: 768px) 33vw, 100vw"
-          className="object-cover"
-        />
+        {project.thumbnailKind === "site-preview" ? (
+          <SitePreview />
+        ) : project.thumbnail ? (
+          <Image
+            src={project.thumbnail}
+            alt={`${project.title} screenshot`}
+            fill
+            sizes="(min-width: 768px) 33vw, 100vw"
+            className="object-cover"
+          />
+        ) : null}
         <span
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 ring-1 ring-inset"

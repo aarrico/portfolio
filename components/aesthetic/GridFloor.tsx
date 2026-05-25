@@ -1,29 +1,28 @@
+// components/aesthetic/GridFloor.tsx
+import { useId } from "react";
+
 type GridFloorProps = {
   className?: string;
   height?: number;
 };
 
-/**
- * Refined perspective grid receding to a vanishing point on the horizon.
- * Lines fade with distance via a radial mask. Uses currentColor so the
- * caller controls hue/opacity per theme.
- */
 export function GridFloor({ className, height = 220 }: GridFloorProps) {
-  const cols = 21; // odd so a line passes through the vanishing point
+  const reactId = useId();
+  const gradientId = `grid-fade-${reactId}`;
+  const maskId = `grid-edge-mask-${reactId}`;
+  const cols = 21;
   const horizonY = 0;
   const bottomY = height;
-  const horizonHalf = 0.5; // 50% of width converges
-  const bottomHalf = 6; // 600% width at viewer — exaggerated perspective
+  const horizonHalf = 0.5;
+  const bottomHalf = 6;
 
   const verticals = Array.from({ length: cols }, (_, i) => {
-    const t = (i / (cols - 1)) * 2 - 1; // -1 .. 1
+    const t = (i / (cols - 1)) * 2 - 1;
     const xTop = 50 + t * horizonHalf * 100;
     const xBot = 50 + t * bottomHalf * 100;
     return { xTop, xBot };
   });
 
-  // Horizontal lines spaced by perspective: y = horizon + h * (n / (n + k))^2
-  // 18 receding lines — denser, more defined floor.
   const ROWS = 18;
   const rows = Array.from({ length: ROWS }, (_, i) => {
     const n = i + 1;
@@ -46,21 +45,27 @@ export function GridFloor({ className, height = 220 }: GridFloorProps) {
         style={{ display: "block", overflow: "visible" }}
       >
         <defs>
-          <linearGradient id="grid-fade" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="currentColor" stopOpacity="0" />
-            <stop offset="18%" stopColor="currentColor" stopOpacity="0.55" />
-            <stop offset="100%" stopColor="currentColor" stopOpacity="0.95" />
+          <linearGradient id={gradientId} x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="currentColor" stopOpacity="0.30" />
+            <stop offset="20%" stopColor="currentColor" stopOpacity="0.60" />
+            <stop offset="100%" stopColor="currentColor" stopOpacity="1" />
           </linearGradient>
-          <mask id="grid-edge-mask">
-            <rect x="-50" y="0" width="200" height={height} fill="url(#grid-fade)" />
+          <mask id={maskId}>
+            <rect
+              x="-50"
+              y="0"
+              width="200"
+              height={height}
+              fill={`url(#${gradientId})`}
+            />
           </mask>
         </defs>
 
         <g
           stroke="currentColor"
-          strokeWidth="0.6"
+          strokeWidth="0.5"
           fill="none"
-          mask="url(#grid-edge-mask)"
+          mask={`url(#${maskId})`}
           vectorEffect="non-scaling-stroke"
         >
           {verticals.map((v, i) => (
@@ -80,8 +85,8 @@ export function GridFloor({ className, height = 220 }: GridFloorProps) {
                 y1={y}
                 x2={150}
                 y2={y}
-                strokeOpacity={1 + (i / rows.length)}
-                strokeWidth={0.6 + (i / rows.length) * 0.7}
+                strokeOpacity={0.4 + (i / rows.length) * 0.4}
+                strokeWidth={0.5 + (i / rows.length) * 0.5}
               />
             ))}
           </g>

@@ -1,23 +1,21 @@
 import type { Metadata } from "next";
-// import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { InnerPageHeader } from "@/components/aesthetic/InnerPageHeader";
-import { getProjectBySlug, getProjectSlugs } from "@/lib/data";
-import { loadProjectMDX } from "@/lib/mdx";
+import { getProject, listProjectSlugs, loadProjectBody } from "@/lib/projects";
 import { FaGithub } from "react-icons/fa";
 
 type RouteParams = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return getProjectSlugs().map((slug) => ({ slug }));
+  return listProjectSlugs().map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
   params,
 }: RouteParams): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = getProject(slug);
   if (!project) return {};
   return {
     title: project.title,
@@ -27,24 +25,17 @@ export async function generateMetadata({
 
 export default async function ProjectDetailPage({ params }: RouteParams) {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = getProject(slug);
   if (!project) notFound();
-  const Body = await loadProjectMDX(slug);
+  const Body = await loadProjectBody(slug);
 
   return (
     <>
-      <InnerPageHeader title={project.title.toUpperCase()} eyebrow={project.date} />
+      <InnerPageHeader
+        title={project.title.toUpperCase()}
+        eyebrow={project.date}
+      />
       <article className="mx-auto max-w-3xl px-4 py-12">
-        {/* <div className="relative aspect-video overflow-hidden rounded-md">
-          <Image
-            src={project.thumbnail}
-            alt={`${project.title} screenshot`}
-            fill
-            sizes="(min-width: 768px) 50vw, 100vw"
-            className="object-cover"
-            priority
-          />
-        </div> */}
         <ul className="mt-4 flex flex-wrap gap-2">
           {project.tags.map((tag) => (
             <li
@@ -60,16 +51,29 @@ export default async function ProjectDetailPage({ params }: RouteParams) {
         </div>
         <div className="mt-8 flex gap-4 text-sm">
           {project.links.repo && (
-            <a href={project.links.repo} target="_blank" rel="noreferrer" className="hover:text-[color:var(--accent)]">
+            <a
+              href={project.links.repo}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-[color:var(--accent)]"
+            >
               <FaGithub size="20" />
             </a>
           )}
           {project.links.demo && (
-            <a href={project.links.demo} target="_blank" rel="noreferrer" className="hover:text-[color:var(--accent)]">
+            <a
+              href={project.links.demo}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-[color:var(--accent)]"
+            >
               Demo ↗
             </a>
           )}
-          <Link href="/projects" className="ml-auto opacity-70 hover:text-[color:var(--accent)]">
+          <Link
+            href="/projects"
+            className="ml-auto opacity-70 hover:text-[color:var(--accent)]"
+          >
             ← All projects
           </Link>
         </div>

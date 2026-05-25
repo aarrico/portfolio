@@ -53,17 +53,25 @@ export function ContactForm({ action = sendContact }: ContactFormProps) {
   return (
     <form onSubmit={onSubmit} className="space-y-4" noValidate>
       <div>
-        <label htmlFor="name" className="block text-sm">Name</label>
+        <label htmlFor="name" className="block text-sm">
+          Name
+        </label>
         <input
           id="name"
           autoComplete="name"
           {...register("name")}
           className="mt-1 w-full rounded-sm border border-[color:var(--fg)]/20 bg-transparent px-3 py-2 text-sm focus:border-[color:var(--accent)] focus:outline-none"
         />
-        {errors.name && <p className="mt-1 text-xs text-[color:var(--accent)]">{errors.name.message}</p>}
+        {errors.name && (
+          <p className="mt-1 text-xs text-[color:var(--accent)]">
+            {errors.name.message}
+          </p>
+        )}
       </div>
       <div>
-        <label htmlFor="email" className="block text-sm">Email</label>
+        <label htmlFor="email" className="block text-sm">
+          Email
+        </label>
         <input
           id="email"
           type="email"
@@ -71,17 +79,27 @@ export function ContactForm({ action = sendContact }: ContactFormProps) {
           {...register("email")}
           className="mt-1 w-full rounded-sm border border-[color:var(--fg)]/20 bg-transparent px-3 py-2 text-sm focus:border-[color:var(--accent)] focus:outline-none"
         />
-        {errors.email && <p className="mt-1 text-xs text-[color:var(--accent)]">{errors.email.message}</p>}
+        {errors.email && (
+          <p className="mt-1 text-xs text-[color:var(--accent)]">
+            {errors.email.message}
+          </p>
+        )}
       </div>
       <div>
-        <label htmlFor="message" className="block text-sm">Message</label>
+        <label htmlFor="message" className="block text-sm">
+          Message
+        </label>
         <textarea
           id="message"
           rows={5}
           {...register("message")}
           className="mt-1 w-full rounded-sm border border-[color:var(--fg)]/20 bg-transparent px-3 py-2 text-sm focus:border-[color:var(--accent)] focus:outline-none"
         />
-        {errors.message && <p className="mt-1 text-xs text-[color:var(--accent)]">{errors.message.message}</p>}
+        {errors.message && (
+          <p className="mt-1 text-xs text-[color:var(--accent)]">
+            {errors.message.message}
+          </p>
+        )}
       </div>
 
       {/* honeypot — hidden from real users */}

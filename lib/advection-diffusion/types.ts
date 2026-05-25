@@ -1,12 +1,12 @@
 export type SimParams = {
-  MM: number;      // cells per unit length
-  tmax: number;    // total sim time
-  dtout: number;   // output cadence
-  factor: number;  // CFL dt factor (>1 = blow up)
-  a: number;       // left boundary
-  b: number;       // right boundary
-  D: number;       // diffusivity
-  v: number;       // advection velocity
+  MM: number; // cells per unit length
+  tmax: number; // total sim time
+  dtout: number; // output cadence
+  factor: number; // CFL dt factor (>1 = blow up)
+  a: number; // left boundary
+  b: number; // right boundary
+  D: number; // diffusivity
+  v: number; // advection velocity
 };
 
 export type Snapshot = {
@@ -20,7 +20,7 @@ export type PresetSlug = "calm" | "breezy" | "windy" | "blow-up";
 
 export type Preset = {
   slug: PresetSlug;
-  weatherLabel: string;   // "Calm day"
-  mathLabel: string;      // "Diffusion only"
+  weatherLabel: string; // "Calm day"
+  mathLabel: string; // "Diffusion only"
   params: SimParams;
 };

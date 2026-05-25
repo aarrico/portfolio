@@ -1,6 +1,8 @@
 import { test, expect } from "@playwright/test";
 
-test("navigates Home → About → Projects → detail → Resume → Contact", async ({ page }) => {
+test("navigates Home → About → Projects → detail → Resume → Contact", async ({
+  page,
+}) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("ARRICO");
 
@@ -21,7 +23,10 @@ test("navigates Home → About → Projects → detail → Resume → Contact", 
   await expect(windSlider).toHaveValue("2");
 
   await page.goBack();
-  await page.getByRole("link", { name: /portfolio site/i }).first().click();
+  await page
+    .getByRole("link", { name: /portfolio site/i })
+    .first()
+    .click();
   await expect(page).toHaveURL(/\/projects\/portfolio$/);
 
   await page.getByRole("link", { name: "Resume" }).click();

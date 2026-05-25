@@ -1,3 +1,4 @@
+/* app/globals.css */
 @import "tailwindcss";
 
 @plugin "@tailwindcss/typography";
@@ -18,46 +19,54 @@
   --font-mono: var(--font-mono);
   --font-display: var(--font-display);
 
-  --color-magenta: #a8275a;
-  --color-rose: #e85a7c;
-  --color-orange: #ff8559;
-  --color-ember: #ffb347;
-  --color-accent: #7adfd9;
-  --color-blue: #2a3658;
-  --color-purple: #6b3a7a;
-  --color-pink: #e8a3b5;
-  --color-peach: #ffd4a8;
-  --color-gold: #fff0c4;
-  --color-teal: #3a6b6b;
+  /* Deeply saturated, moody 80s film stock tones */
+  --color-magenta: #8e2e44; /* Deep wine-rose */
+  --color-rose: #c66461; /* Dusty terracotta rose */
+  --color-orange: #e0532b; /* Warm, burning twilight orange */
+  --color-ember: #f09e38; /* Warm golden hour sunset amber */
+  --color-accent: #49b3ad; /* Muted teal/cyan glow */
+  --color-blue: #1c233a; /* Deep twilight ocean navy */
+  --color-purple: #4e2259; /* Deep violet shadow */
+  --color-pink: #ca768b; /* Dusty vaporwave pastel pink */
+  --color-peach: #e6a773; /* Soft coastal beach horizon peach */
+  --color-gold: #eddca4; /* Warm sand tint */
+  --color-teal: #2c5252; /* Dim coastal marine shadow */
 }
 
 :root {
-  --bg: #fff0c4;
-  --fg: #0d0820;
-  --accent: #3a6b6b;
-  --gradient-stop-1: #2a3658;
-  --gradient-stop-2: #6b3a7a;
-  --gradient-stop-3: #e8a3b5;
-  --gradient-stop-4: #ffd4a8;
-  --gradient-stop-5: #fff0c4;
-  --sun-stop-1: #ffd4a8;
-  --sun-stop-2: #fff0c4;
+  /* Malibu Dawn / Soft Day Mode */
+  --bg: #eddca4;
+  --fg: #0a0614;
+  --accent: #2c5252;
+  --gradient-stop-1: #1c233a;
+  --gradient-stop-2: #4e2259;
+  --gradient-stop-3: #c0807c;
+  --gradient-stop-4: #e6a773;
+  --gradient-stop-5: #eddca4;
+  --sun-stop-1: #e6a773;
+  --sun-stop-2: #eddca4;
 }
 
 :root[data-theme="dark"] {
-  --bg: #0d0820;
-  --fg: #f5ede0;
-  --accent: #7adfd9;
-  --gradient-stop-1: #0d0820;
-  --gradient-stop-2: #a8275a;
-  --gradient-stop-3: #e85a7c;
-  --gradient-stop-4: #ff8559;
-  --gradient-stop-5: #ffb347;
-  --sun-stop-1: #ffb347;
-  --sun-stop-2: #ff8559;
+  /* LA Sunset / Cinematic Night Mode */
+  --bg: #0a0614; /* Near-black deep ink violet sky */
+  --fg: #eaddcd; /* Soft, low-contrast off-white text */
+  --accent: #49b3ad; /* Muted glowing cyan */
+  --gradient-stop-1: #0a0614;
+  --gradient-stop-2: #8e2e44;
+  --gradient-stop-3: #c66461;
+  --gradient-stop-4: #e0532b;
+  --gradient-stop-5: #f09e38;
+  --sun-stop-1: #f09e38; /* Top of the sun (Mellow Amber) */
+  --sun-stop-2: #e0532b; /* Bottom of the sun (Deep Twilight Orange) */
 }
 
-html, body {
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
   background: var(--bg);
   color: var(--fg);
 }
@@ -80,13 +89,23 @@ body {
 }
 
 @keyframes sun-rise {
-  0%   { opacity: 0; transform: translateY(22px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes grid-scan {
-  0%   { transform: translateY(0); }
-  100% { transform: translateY(28px); }
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(28px);
+  }
 }
 
 .hero-rise {
@@ -104,11 +123,19 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {
     animation: none !important;
     transition: none !important;
   }
-  .hero-rise, .sun-rise { opacity: 1; transform: none; filter: none; }
+  .hero-rise,
+  .sun-rise {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
 }

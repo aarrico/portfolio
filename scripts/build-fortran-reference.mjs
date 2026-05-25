@@ -67,9 +67,7 @@ function parseFortranFile(path) {
       }
       const parts = row.trim().split(/\s+/);
       if (parts.length < 2) {
-        throw new Error(
-          `Malformed data row at ${path}:${i + j + 1}: "${row}"`,
-        );
+        throw new Error(`Malformed data row at ${path}:${i + j + 1}: "${row}"`);
       }
       // Fortran writes NaN as "NaN" and Inf as "Infinity" or "+Inf" depending
       // on the runtime. Number() coerces both correctly.

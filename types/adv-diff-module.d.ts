@@ -25,4 +25,3 @@ export interface AdvDiffModule {
   _sim_get_x_ptr: (ptr: number) => number;
   _sim_get_u_ptr: (ptr: number) => number;
 }
-
