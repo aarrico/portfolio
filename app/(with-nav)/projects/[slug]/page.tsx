@@ -40,7 +40,7 @@ export default async function ProjectDetailPage({ params }: RouteParams) {
           {project.tags.map((tag) => (
             <li
               key={tag}
-              className="rounded-full border border-[color:var(--accent)]/40 px-2 py-0.5 font-mono text-xs"
+              className="rounded-full border border-(--accent)/40 px-2 py-0.5 font-mono text-xs"
             >
               {tag}
             </li>
@@ -54,8 +54,9 @@ export default async function ProjectDetailPage({ params }: RouteParams) {
             <a
               href={project.links.repo}
               target="_blank"
-              rel="noreferrer"
-              className="hover:text-[color:var(--accent)]"
+              rel="noopener noreferrer"
+              aria-label="View source on GitHub"
+              className="hover:text-(--accent)"
             >
               <FaGithub size="20" />
             </a>
@@ -64,15 +65,15 @@ export default async function ProjectDetailPage({ params }: RouteParams) {
             <a
               href={project.links.demo}
               target="_blank"
-              rel="noreferrer"
-              className="hover:text-[color:var(--accent)]"
+              rel="noopener noreferrer"
+              className="hover:text-(--accent)"
             >
               Demo ↗
             </a>
           )}
           <Link
             href="/projects"
-            className="ml-auto opacity-70 hover:text-[color:var(--accent)]"
+            className="ml-auto opacity-70 hover:text-(--accent)"
           >
             ← All projects
           </Link>
