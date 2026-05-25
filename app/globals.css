@@ -45,7 +45,7 @@
   --color-orange: #e0532b; /* Warm, burning twilight orange */
   --color-ember: #f09e38; /* Warm golden hour sunset amber */
   --color-accent: #49b3ad; /* Muted teal/cyan glow */
-  --color-blue: #1c233a; /* Deep twilight ocean navy */
+  --color-blue: #120a24; /* Deep twilight ocean navy */
   --color-purple: #4e2259; /* Deep violet shadow */
   --color-pink: #ca768b; /* Dusty vaporwave pastel pink */
   --color-peach: #e6a773; /* Soft coastal beach horizon peach */
@@ -54,11 +54,11 @@
 }
 
 :root[data-theme="dark"] {
-  /* LA Sunset / Cinematic Night Mode */
-  --bg: #120a24;
+  /* LA Sunset Retrowave Night Mode */
+  --bg: var(--color-blue);
   --fg: #eaddcd;
   --accent: var(--color-accent);
-  --gradient-stop-1: #0a0614;
+  --gradient-stop-1: var(--color-blue);
   --gradient-stop-2: var(--color-magenta);
   --gradient-stop-3: var(--color-rose);
   --gradient-stop-4: var(--color-orange);
@@ -68,17 +68,17 @@
 }
 
 :root[data-theme="light"] {
-  /* Malibu Dawn / Soft Day Mode */
-  --bg: var(--color-gold);
-  --fg: #0a0614;
-  --accent: var(--color-teal);
+  /* Pastel Dawn Vaporwave Day Mode */
+  --bg: #fcf5f7;
+  --fg: var(--color-blue);
+  --accent: var(--color-orange);
   --gradient-stop-1: var(--color-blue);
   --gradient-stop-2: var(--color-purple);
-  --gradient-stop-3: #c0807c;
+  --gradient-stop-3: var(--color-rose);
   --gradient-stop-4: var(--color-peach);
-  --gradient-stop-5: var(--color-gold);
-  --sun-stop-1: var(--color-peach);
-  --sun-stop-2: var(--color-gold);
+  --gradient-stop-5: #fcf5f7;
+  --sun-stop-1: var(--color-orange);
+  --sun-stop-2: var(--color-ember);
 }
 
 html {

@@ -46,8 +46,8 @@ export default function RootLayout({
       <body className="min-h-dvh flex flex-col">
         <ThemeProvider
           attribute="data-theme"
-          forcedTheme="dark"
-          enableSystem={false}
+          defaultTheme="system"
+          enableSystem
           disableTransitionOnChange={false}
         >
           {children}
