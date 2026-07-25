@@ -90,10 +90,9 @@ There's no live demo, since a pipeline with three databases doesn't fit a
 $0/month portfolio. The diagram at the top simulates the system as I
 submitted it for the interview, and this site's test suite checks it against
 traces I recorded from a real run, so the backoff schedule and receive
-ceiling you're watching are the ones the actual queue produced. You can also
-run the real thing on your own GitHub quota:
-[open it in Codespaces](https://codespaces.new/aarrico/starly), then
-`make up && make seed`.
+ceiling you're watching are the ones the actual queue produced. If you want
+the real thing, clone the repo and run `make up && make seed`, which brings
+the whole stack up in Docker.
 
 ## What changes at scale
 
