@@ -1,5 +1,24 @@
 [
   {
+    "slug": "starly",
+    "title": "Starly",
+    "blurb": "Distributed event pipeline built for an interview take-home: FastAPI ingestion, SQS-style queue with DLQ, MongoDB + Elasticsearch + Redis.",
+    "tags": [
+      "Python",
+      "FastAPI",
+      "Elasticsearch",
+      "Redis",
+      "Distributed Systems"
+    ],
+    "thumbnail": "/images/projects/starly.svg",
+    "links": {
+      "repo": "https://github.com/aarrico/starly"
+    },
+    "featured": true,
+    "order": 1,
+    "date": "2026-07"
+  },
+  {
     "slug": "portfolio",
     "title": "Portfolio Site",
     "blurb": "This site itself. Built with Next.js to get exp with it.",
@@ -9,7 +28,7 @@
       "repo": "https://github.com/aarrico/portfolio"
     },
     "featured": true,
-    "order": 1,
+    "order": 2,
     "date": "2026-05"
   },
   {
@@ -22,7 +41,7 @@
       "repo": "https://github.com/aarrico/advection-diffusion"
     },
     "featured": true,
-    "order": 2,
+    "order": 3,
     "date": "2026-05"
   }
 ]
