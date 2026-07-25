@@ -13,6 +13,18 @@ test("navigates Home → About → Projects → detail → Resume → Contact", 
   await expect(page).toHaveURL(/\/projects$/);
 
   await page
+    .getByRole("link", { name: /starly/i })
+    .first()
+    .click();
+  await expect(page).toHaveURL(/\/projects\/starly$/);
+  await expect(
+    page.getByRole("img", { name: /starly pipeline simulation/i }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: /fill queue/i }).click();
+  await expect(page.getByRole("log")).toContainText("503", { timeout: 15_000 });
+
+  await page.goBack();
+  await page
     .getByRole("link", { name: /advection-diffusion solver/i })
     .first()
     .click();

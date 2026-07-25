@@ -1,0 +1,105 @@
+import { Pipeline } from "@/components/starly/Pipeline";
+
+<Pipeline />
+
+## What it is
+
+Starly is a distributed event processing platform I built for an interview
+take-home. Web events hit a FastAPI endpoint, get validated, and land in a
+queue; a background worker then fans them out to the stores that serve
+reads. `POST /events` comes back with a `202` in a few milliseconds, and a
+moment later the event is queryable in Mongo and searchable in
+Elasticsearch. The whole stack runs locally in Docker — Mongo,
+Elasticsearch, Redis, and the app — with `make up && make seed`.
+
+## Why three stores
+
+Each of the stores has a specific purpose by design. MongoDB is the
+source of truth: it owns storage, filtered queries, and the stats
+aggregations. Elasticsearch does full-text search and nothing else. It only
+ever receives events Mongo has already accepted, so it can't disagree with
+the source of truth. Redis is purely for optimization: cache-aside realtime stats with a
+TTL, plus the rate-limit counters. Hit `Kill Redis` above and the realtime
+endpoint recomputes from Mongo instead of failing.
+
+`Kill MongoDB` is the more interesting one. Ingestion doesn't notice, because
+the request path never touches Mongo. `POST /events` keeps returning `202` and
+the queue absorbs the load until it fills. The worker is what suffers, nacking
+and backing off until the events dead-letter. A better answer would be to gate
+the worker on the same dependency-health state `/health/ready` reports, so a
+circuit breaker stops it consuming while Mongo is down. The queue buffers
+whatever it can hold, the client gets a `503 Retry-After` once it's full, and
+nothing reaches the DLQ. As it stands, a short outage leaves a pile of
+perfectly good messages to redrive by hand.
+
+Realtime stats keep answering the whole time, served from a Redis snapshot
+that has outlived the store it was computed from, right until the TTL expires
+and the endpoint starts returning `503 storage_unavailable`. Click
+`Realtime stats` on either side of that moment and watch which store the
+request flies to.
+
+## The queue
+
+An SQS-style queue sits between ingestion and processing: at-least-once
+delivery, receive counts, exponential backoff on redelivery, and a
+dead-letter queue at the retry ceiling. It's also bounded. When it fills,
+`POST /events` returns a `503` with a `Retry-After` header instead of
+pretending everything is fine. Poison messages (payloads that can't be
+deserialized) skip the retry dance and go straight to the DLQ, which you can
+inspect at `GET /admin/dlq`. Redriving the DLQ back through the pipeline is
+designed but not built, since the take-home's scope was the pipeline itself.
+
+## Is ack-after-ES a bug?
+
+Someone asked me this about the design: the worker only acks a message after
+Elasticsearch is updated, so if ES is down the message never gets acked.
+Isn't that a bug?
+
+No, it's the at-least-once contract at work. Consider where else you
+could put the ack. Ack when the worker picks the message up and you get
+at-most-once delivery — a crash between pickup and write loses events
+silently. Ack after Mongo but before ES and the record is safe, but a failed
+search write vanishes with no repair path except an ad-hoc backfill. Ack
+only after every durable write has succeeded and a failed ES write turns
+into a redelivery instead, which is safe here because the Mongo write is an
+idempotent upsert keyed on the event id. A redelivered event just replaces
+itself. Bounded retries keep the loop finite, and the DLQ catches whatever
+outlasts the outage. Search goes stale while the record stays current, which
+is the degradation I'd pick. `/events` and `/stats` keep answering from Mongo
+while `/search` returns a `503` that names its dead dependency.
+
+The tradeoff is write amplification during a long ES outage, since one event
+can be re-upserted into Mongo up to five times, and redrive is manual. At
+production scale I'd decouple the sinks, either fanning out to independent
+consumers per store or streaming Mongo changes into ES, so each store fails
+on its own schedule. None of that means the design is wrong, though. It's
+just where a single container stops being the right answer.
+
+## Error philosophy
+
+A `422` always means the caller was wrong, including unknown fields and
+unknown query params. The API rejects those rather than ignoring them,
+because a filter that silently doesn't filter is worse than an error. A
+`503` names the dependency class that failed (`storage_unavailable`,
+`search_unavailable`). A `500` is my bug. I log it in full and never leak it
+into the response. Every response carries an `X-Request-ID`.
+
+## Run it yourself
+
+There's no live demo, since a pipeline with three databases doesn't fit a
+$0/month portfolio. The diagram at the top simulates the system as I
+submitted it for the interview, and this site's test suite checks it against
+traces I recorded from a real run, so the backoff schedule and receive
+ceiling you're watching are the ones the actual queue produced. If you want
+the real thing, clone the repo and run `make up && make seed`, which brings
+the whole stack up in Docker.
+
+## What changes at scale
+
+The queue lives in-process on purpose, which makes the failure modes visible
+and testable inside a single container. The cost is that buffered events die
+with the process, and ingest can't scale separately from processing. Swap it
+for real SQS and the interface holds. What changes is the ops story. The
+longer version of all this, including what each component owns and how the
+system fails, is in the Starly repo's
+[ARCHITECTURE.md](https://github.com/aarrico/starly/blob/main/ARCHITECTURE.md).

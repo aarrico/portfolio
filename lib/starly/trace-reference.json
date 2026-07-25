@@ -1,0 +1,27 @@
+{
+  "capturedAt": "2026-07-24T20:48:49.010Z",
+  "seedBurst": {
+    "sent": 20,
+    "accepted202": 20
+  },
+  "esOutage": {
+    "events": 1,
+    "redeliveriesBeforeDlq": 4,
+    "dlqReceiveCount": 5,
+    "dlqError": "unhandled: ConnectionError('Cannot connect to host elasticsearch:9200 ssl:default [Name or service not known]', errors=(",
+    "attemptSource": "batch",
+    "attemptGapsSeconds": [[17.038, 22.032, 20.059, 27.638]],
+    "attemptGapsNote": "Wall-clock gaps between failed batch attempts. Dominated by the Elasticsearch client's own dead-node backoff, so they do not isolate the queue's retry schedule — see queueBackoff for that."
+  },
+  "queueBackoff": {
+    "delaysSeconds": [1, 2.001, 4, 8.001],
+    "dlqReceiveCount": 5,
+    "receipts": 5,
+    "doubles": true,
+    "clock": "deterministic, jitter disabled, 1 ms polling resolution"
+  },
+  "redisOutage": {
+    "realtimeStatsStatus": 200,
+    "servedWithoutRedis": true
+  }
+}
