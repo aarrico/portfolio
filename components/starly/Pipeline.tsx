@@ -83,7 +83,7 @@ export function Pipeline() {
       />
       <p className="mt-2 text-xs opacity-70">
         Simulation of Starly&apos;s behavior as submitted for a take-home
-        project — validated in tests against a recorded run of the real system.
+        project, validated in tests against a recorded run of the real system.
         DLQ redrive is the designed operation; the real service ships DLQ
         inspection (GET /admin/dlq).
       </p>

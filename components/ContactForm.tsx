@@ -123,7 +123,7 @@ export function ContactForm({ action = sendContact }: ContactFormProps) {
 
       {result?.ok && (
         <p className="text-center text-sm">
-          Thanks — I&apos;ll get back to you soon.
+          Thanks, I&apos;ll get back to you soon.
         </p>
       )}
       {result && !result.ok && (

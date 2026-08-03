@@ -5,8 +5,8 @@ import { Playground } from "@/components/advection-diffusion/Playground";
 ## The picture
 
 A factory fires off a puff of something out of its chimney. The wind
-catches it and pushes it downwind — that's **advection**. As it drifts,
-the puff smears out into a softer, wider cloud — that's **diffusion**.
+catches it and pushes it downwind, and that's **advection**. As it drifts,
+the puff smears out into a softer, wider cloud, and that's **diffusion**.
 Almost every "stuff is moving through a medium" problem in engineering
 is some mix of these two: smokestack plumes, dye in a stream, heat in a
 metal bar, pollutants in a river.
@@ -24,7 +24,7 @@ fifty lines of math; the rest is bookkeeping.
 ## The CFL condition
 
 Explicit schemes are stable only when the timestep is small relative
-to how fast information moves across a cell — `dt ≤ 1 / (v/dx + 2D/dx²)`.
+to how fast information moves across a cell: `dt ≤ 1 / (v/dx + 2D/dx²)`.
 The **Blow-up** preset deliberately busts that bound. The plume turns
 into garbage within a few steps and the canvas freezes on the first
 non-finite value. That's not a bug in the simulation; it's the
@@ -37,7 +37,7 @@ browser, I had Gemini 3.1 Pro translate the Fortran to C++, then compiled the
 C++ to WebAssembly with Emscripten. The translation is checked against
 a frozen snapshot of the original Fortran's output: the test suite
 runs each preset under WASM and asserts the curves track the Fortran's
-within a small tolerance. The math is identical to the bit — a tiny
+within a small tolerance. The math is identical to the bit. A tiny
 residual comes from `time += dt` accumulating differently across the
 two compilers' floating-point pipelines, which puts the WASM about one
 timestep past the Fortran at output time. The original Fortran source

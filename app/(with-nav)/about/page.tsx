@@ -64,7 +64,7 @@ export default async function AboutPage() {
       >
         A background in physics and supercomputing shapes how I approach
         software engineering and technical leadership. Currently bridging into
-        learning the ropes of AI engineering — and building a Pokémon GO team
+        learning the ropes of AI engineering, and building a Pokémon GO team
         optimizer on the side.
       </IntroBand>
 

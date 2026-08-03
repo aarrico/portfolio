@@ -9,28 +9,30 @@ take-home. Web events hit a FastAPI endpoint, get validated, and land in a
 queue; a background worker then fans them out to the stores that serve
 reads. `POST /events` comes back with a `202` in a few milliseconds, and a
 moment later the event is queryable in Mongo and searchable in
-Elasticsearch. The whole stack runs locally in Docker — Mongo,
-Elasticsearch, Redis, and the app — with `make up && make seed`.
+Elasticsearch. On a single node it holds 626 requests a second at a
+44.8 ms p99 with nothing rejected. The whole stack runs locally in
+Docker (Mongo, Elasticsearch, Redis, and the app) with
+`make up && make seed`.
 
 ## Why three stores
 
-Each of the stores has a specific purpose by design. MongoDB is the
-source of truth: it owns storage, filtered queries, and the stats
-aggregations. Elasticsearch does full-text search and nothing else. It only
-ever receives events Mongo has already accepted, so it can't disagree with
-the source of truth. Redis is purely for optimization: cache-aside realtime stats with a
-TTL, plus the rate-limit counters. Hit `Kill Redis` above and the realtime
-endpoint recomputes from Mongo instead of failing.
+MongoDB is the source of truth: it owns storage, filtered queries, and
+the stats aggregations. Elasticsearch does full-text search and nothing
+else. It only ever receives events Mongo has already accepted, so it
+can't disagree with the source of truth. Redis is purely for
+optimization: cache-aside realtime stats with a TTL, plus the rate-limit
+counters. Hit `Kill Redis` above and the realtime endpoint recomputes
+from Mongo instead of failing.
 
 `Kill MongoDB` is the more interesting one. Ingestion doesn't notice, because
 the request path never touches Mongo. `POST /events` keeps returning `202` and
 the queue absorbs the load until it fills. The worker is what suffers, nacking
 and backing off until the events dead-letter. A better answer would be to gate
 the worker on the same dependency-health state `/health/ready` reports, so a
-circuit breaker stops it consuming while Mongo is down. The queue buffers
-whatever it can hold, the client gets a `503 Retry-After` once it's full, and
-nothing reaches the DLQ. As it stands, a short outage leaves a pile of
-perfectly good messages to redrive by hand.
+circuit breaker stops it consuming while Mongo is down. The queue would
+buffer whatever it can hold, the client would get a `503 Retry-After` once
+it filled, and nothing would reach the DLQ. As it stands, a short outage
+leaves a pile of perfectly good messages to redrive by hand.
 
 Realtime stats keep answering the whole time, served from a Redis snapshot
 that has outlived the store it was computed from, right until the TTL expires
@@ -44,7 +46,10 @@ An SQS-style queue sits between ingestion and processing: at-least-once
 delivery, receive counts, exponential backoff on redelivery, and a
 dead-letter queue at the retry ceiling. It's also bounded. When it fills,
 `POST /events` returns a `503` with a `Retry-After` header instead of
-pretending everything is fine. Poison messages (payloads that can't be
+pretending everything is fine. Under sustained overload that is exactly
+what happened: once the buffer filled, 57% of writes came back as
+`503 Retry-After`, with zero errors and zero data loss among the events
+that did get a `202`. Poison messages (payloads that can't be
 deserialized) skip the retry dance and go straight to the DLQ, which you can
 inspect at `GET /admin/dlq`. Redriving the DLQ back through the pipeline is
 designed but not built, since the take-home's scope was the pipeline itself.
@@ -57,7 +62,7 @@ Isn't that a bug?
 
 No, it's the at-least-once contract at work. Consider where else you
 could put the ack. Ack when the worker picks the message up and you get
-at-most-once delivery — a crash between pickup and write loses events
+at-most-once delivery: a crash between pickup and write loses events
 silently. Ack after Mongo but before ES and the record is safe, but a failed
 search write vanishes with no repair path except an ad-hoc backfill. Ack
 only after every durable write has succeeded and a failed ES write turns
@@ -98,8 +103,19 @@ the whole stack up in Docker.
 
 The queue lives in-process on purpose, which makes the failure modes visible
 and testable inside a single container. The cost is that buffered events die
-with the process, and ingest can't scale separately from processing. Swap it
-for real SQS and the interface holds. What changes is the ops story. The
-longer version of all this, including what each component owns and how the
-system fails, is in the Starly repo's
-[ARCHITECTURE.md](https://github.com/aarrico/starly/blob/main/ARCHITECTURE.md).
+with the process, and ingest can't scale separately from processing.
+
+That coupling is measurable rather than theoretical. The workers are asyncio
+tasks running on the API's own event loop, so they compete with in-flight
+requests for it: drain ran about 15x faster with ingest idle than with it in
+flight. More consumers help, but only so far. Throughput scaled close to
+linearly from 50 to 251 events a second across one to four of them, and every
+consumer I added bought drain rate at the cost of ingest p99. Batch size
+isn't the lever either. It's capped at 10 to stay faithful to SQS's
+`ReceiveMessage` limit, which trades throughput headroom for interface
+fidelity.
+
+Swap the queue for real SQS and the interface holds. What changes is the
+ops story. The longer version of all this, including what each component
+owns and how the system fails, is in the Starly repo's
+[ARCHITECTURE.md](https://github.com/aarrico/starly/blob/take-home-submission/ARCHITECTURE.md).

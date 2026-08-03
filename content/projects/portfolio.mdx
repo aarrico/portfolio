@@ -2,7 +2,7 @@
 
 I needed a portfolio that sounded like me instead of a template, and I needed
 an excuse to ship something real in Next.js 16 while I was job-hunting. So
-the site is the resume _and_ the work sample — every page you click on is
+the site is the resume _and_ the work sample: every page you click on is
 also a thing I'm claiming I can build.
 
 ## How it's put together
@@ -13,8 +13,8 @@ the only client-side JavaScript is the contact form and the theme toggle.
 Cache Components is turned on, so most routes render at build time and
 the bundle that ships to the browser is tiny.
 
-Content is split on purpose. Structured data — the resume, the project
-index — lives in plain JSON files under `data/`. The long-form writeups
+Content is split on purpose. Structured data (the resume, the project
+index) lives in plain JSON files under `data/`. The long-form writeups
 for each project are MDX under `content/projects/`. The JSON is the
 source of truth: zod validates it at load time, so a malformed entry
 fails the build instead of rendering a broken page. Keeping the resume
@@ -31,7 +31,7 @@ service.
 
 The Advection-Diffusion project on this site embeds a WebAssembly module
 compiled from C++ (converted from Fortran!). Next.js's bundler and `.wasm` files have a difficult
-relationship — Turbopack wants to resolve them statically at build time,
+relationship. Turbopack wants to resolve them statically at build time,
 and the runtime fetch path was fighting the static analysis. The fix
 was to stop shipping a separate `.wasm` file at all: the binary is now
 base64-inlined into a single `adv-diff.js` glue module, so there's
