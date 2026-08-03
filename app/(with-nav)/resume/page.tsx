@@ -7,12 +7,13 @@ export const metadata: Metadata = {
   description: "Resume of Alexander Arrico.",
 };
 
-function formatRange(start: string, end: string | null): string {
+function formatRange(start: string, end?: string | null): string {
   return `${start} – ${end ?? "Present"}`;
 }
 
 export default function ResumePage() {
-  const { basics, summary, experience, education, skills } = getResume();
+  const { basics, summary, experience, projects, education, skills } =
+    getResume();
 
   return (
     <>
@@ -50,6 +51,9 @@ export default function ResumePage() {
                     {formatRange(job.start, job.end)} · {job.location}
                   </p>
                 </div>
+                {job.lede && (
+                  <p className="mt-1 text-sm italic opacity-80">{job.lede}</p>
+                )}
                 <ul className="mt-2 list-disc pl-5 text-sm">
                   {job.bullets.map((b, i) => (
                     <li key={i}>{b}</li>
@@ -59,6 +63,39 @@ export default function ResumePage() {
             ))}
           </ul>
         </section>
+
+        {projects && projects.length > 0 && (
+          <section className="mt-10">
+            <h3 className="font-display text-lg tracking-widest">PROJECTS</h3>
+            <ul className="mt-4 space-y-6">
+              {projects.map((p) => (
+                <li key={p.name}>
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <p className="font-semibold">
+                      {p.name} · {p.tagline}
+                    </p>
+                    {p.link && (
+                      <a
+                        href={`https://${p.link}`}
+                        className="font-mono text-xs opacity-70 hover:opacity-100"
+                      >
+                        {p.link}
+                      </a>
+                    )}
+                  </div>
+                  <p className="mt-1 font-mono text-xs opacity-70">
+                    {p.stack.join(" · ")}
+                  </p>
+                  <ul className="mt-2 list-disc pl-5 text-sm">
+                    {p.bullets.map((b, i) => (
+                      <li key={i}>{b}</li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         <section className="mt-10">
           <h3 className="font-display text-lg tracking-widest">EDUCATION</h3>

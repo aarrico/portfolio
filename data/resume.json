@@ -1,87 +1,191 @@
 {
   "basics": {
     "name": "Alexander Arrico",
-    "title": "Senior Software Engineer & Architect",
+    "title": "Senior Software Engineer",
+    "headline": "Backend, distributed systems, and legacy modernization",
     "location": "Brunswick, GA",
     "email": "alex@arrico.me",
-    "headline": "A decade of engineering excellence, from architecture to deployment.",
     "links": {
-      "github": "https://github.com/aarrico",
+      "website": "https://arrico.me",
       "linkedin": "https://linkedin.com/in/aarrico",
-      "website": "https://arrico.me"
+      "github": "https://github.com/aarrico"
     }
   },
-  "summary": "Senior engineer and technical leader who specializes in walking into legacy codebases and making them modern. 10+ years of experience migrating monoliths to microservices, building engineering teams from scratch, and establishing the processes that make software organizations actually ship. Track record includes a zero-downtime migration of 20,000+ users from Java to Node.js, a 200x query latency improvement, and founding an engineering department from one person to a functional team with CI/CD, processes that make sense for the team, and code review culture in place. Seeking a senior engineering or technical leadership role where that experience drives real impact.",
-  "experience": [
+  "summary": "Senior software engineer with 10+ years on production backend systems in Python, Node.js/TypeScript, and Java. Most of that work is distributed and event-driven: moving legacy monoliths onto AWS, and designing the APIs and data models underneath. Migrated 20,000+ users off a Java monolith to Node.js microservices with zero customer data loss, cut PostgreSQL query latency from seconds to tens of milliseconds, and built a serverless messaging pipeline on AWS Lambda and SQS carrying 350,000+ outbound and 12,000 inbound messages daily.",
+  "skills": [
     {
-      "company": "Hourwork, Inc.",
-      "role": "Engineering Manager",
-      "start": "2022-05",
-      "end": "2023-11",
-      "location": "Remote",
-      "bullets": [
-        "Led the complete engineering modernization of a legacy Java platform, managing migration to a cloud-native Node.js ecosystem with zero downtime.",
-        "Migrated 20,000+ users from legacy infrastructure to a modern microservices architecture in 11 months with zero data loss.",
-        "Re-architected PostgreSQL data models, achieving a 200x reduction in query latency and enabling real-time analytics that drove new enterprise sales.",
-        "Implemented trunk-based development and automated CI/CD pipelines, reducing release cycles from quarterly to weekly.",
-        "Instituted code review standards, RFC processes, and incident management protocols, reducing customer-reported bugs by 85% within two months.",
-        "Architected a serverless messaging platform using AWS Lambda and SQS/SNS, processing 350,000+ daily messages with near real-time latency.",
-        "Built a comprehensive observability strategy using DataDog, reducing MTTR for critical production incidents to under 24 hours."
+      "category": "Languages",
+      "items": [
+        "Python",
+        "TypeScript",
+        "JavaScript",
+        "Node.js",
+        "Java",
+        "C#",
+        "SQL",
+        "Bash"
       ]
     },
     {
+      "category": "Backend & APIs",
+      "items": [
+        "FastAPI",
+        "Flask",
+        "Express.js",
+        "Next.js",
+        "REST API Design",
+        "OpenAPI/Swagger",
+        "Pydantic",
+        "asyncio"
+      ]
+    },
+    {
+      "category": "Data & Messaging",
+      "items": [
+        "PostgreSQL",
+        "MongoDB",
+        "Elasticsearch",
+        "Redis",
+        "SQLAlchemy",
+        "Prisma",
+        "AWS SQS/SNS",
+        "Twilio",
+        "Event-Driven Architecture"
+      ]
+    },
+    {
+      "category": "Cloud & Infrastructure",
+      "items": [
+        "AWS (Lambda, SQS, SNS, EC2, RDS, CloudWatch)",
+        "GCP (App Engine, Firebase)",
+        "Docker",
+        "Microservices",
+        "Serverless"
+      ]
+    },
+    {
+      "category": "DevOps & Testing",
+      "items": [
+        "CI/CD (GitHub Actions, GitLab CI, Jenkins)",
+        "DataDog",
+        "pytest",
+        "Jest",
+        "Cypress",
+        "Trunk-Based Development"
+      ]
+    },
+    {
+      "category": "Frontend",
+      "items": [
+        "React",
+        "HTML/CSS"
+      ]
+    },
+    {
+      "category": "Practices",
+      "items": [
+        "Agile/Scrum",
+        "Incident Management",
+        "RFC/Architecture Review",
+        "Jira",
+        "Confluence",
+        "Notion"
+      ]
+    }
+  ],
+  "experience": [
+    {
       "company": "Freelance",
       "role": "Software Consultant",
-      "start": "2024-06",
-      "end": null,
       "location": "Remote",
+      "start": "2024-06",
+      "end": "2026-05",
+      "lede": "Sole engineer on a client's Discord community platform, owning architecture, deployment, and production operations end to end.",
       "bullets": [
-        "Build and maintain a modular TypeScript/Discord.js bot with a layered architecture (controller/repository/domain/presentation), backed by PostgreSQL via Prisma ORM with Docker multi-stage builds for production deployment.",
-        "Implement cron-based session lifecycle automation with recovery logic for downtime, dynamic image generation using Sharp and Canvas, and auto-discovered slash command/event handlers with structured error wrapping.",
-        "Deploy via Railway with GitHub Actions CI/CD, using path aliases with conditional resolution for dev/prod environments and containerized PostgreSQL for local development."
+        "Rewrote the client's TypeScript/Node.js application end to end on a layered domain architecture (controller, repository, domain, presentation), with PostgreSQL persistence through Prisma.",
+        "Built scheduled session automation with downtime-recovery logic, plus an auto-discovery pattern for command and event handlers that let new features register with zero configuration.",
+        "Owned the deployment path end to end, replacing manual deploys with multi-stage Docker builds, GitHub Actions CI/CD, and Railway. Containerized PostgreSQL kept local and production at parity."
+      ]
+    },
+    {
+      "company": "Hourwork, Inc.",
+      "role": "Engineering Manager",
+      "location": "Remote",
+      "start": "2022-05",
+      "end": "2023-11",
+      "lede": "Player-coach on a 5-person cross-functional team (3 engineers, QA, product); primary backend engineer on the platform rebuild while managing the team.",
+      "bullets": [
+        "Architected a serverless messaging platform on AWS Lambda, SQS, and SNS with Twilio that carried 350,000+ outbound and 12,000 inbound messages daily.",
+        "Re-architected the PostgreSQL data models and cut query latency from seconds to tens of milliseconds. The resulting real-time analytics expanded the enterprise sales pipeline.",
+        "Migrated 20,000+ users from a Java/Spring Boot monolith to Node.js microservices in 11 months with zero customer data loss and no full-service outages.",
+        "Built out observability on DataDog and cut resolution time for critical production issues from weeks, or never, to under 24 hours.",
+        "Moved releases from sporadic multi-month cycles to weekly with trunk-based development and automated CI/CD.",
+        "Instituted code review standards, an RFC process, and incident management protocols; customer-reported bugs dropped 85% within two months."
       ]
     },
     {
       "company": "BlueMark",
       "role": "Lead Software Engineer",
+      "location": "Remote",
       "start": "2021-06",
       "end": "2022-04",
-      "location": "Remote",
+      "lede": "Backend lead on an e-commerce platform build, owning REST API design and the automated test strategy.",
       "bullets": [
-        "Lead Backend Architect for a high-traffic e-commerce portal, owning RESTful API design and automated quality assurance pipelines.",
-        "Designed and deployed a scalable RESTful API using Python/Flask and AWS, directly supporting new revenue streams.",
-        "Reduced regression defects by 70% by architecting a comprehensive testing suite (Unit, Integration, E2E) with pytest and Jest.",
-        "Streamlined cross-team integration by defining strict API contracts with OpenAPI/Swagger, eliminating frontend-backend bottlenecks."
+        "Designed and deployed a REST API in Python/Flask on AWS EC2 with PostgreSQL, specifying the OpenAPI/Swagger contracts ahead of implementation so the frontend and backend teams could build in parallel instead of blocking on each other.",
+        "Cut defects reaching QA and staging 70% with unit and integration coverage in pytest and Jest.",
+        "Moved Postgres access onto SQLAlchemy, replacing hand-written queries with a single data-access layer."
       ]
     },
     {
       "company": "Optricity Corp.",
       "role": "Director of Technology",
+      "location": "Durham, NC",
       "start": "2019-01",
       "end": "2021-06",
-      "location": "Durham, NC",
+      "lede": "Promoted to build the company's first engineering function while remaining the senior hands-on engineer on the flagship product.",
       "bullets": [
-        "Promoted to establish and scale the company’s first engineering department, defining technical roadmap, hiring strategy, and Agile SDLC standards.",
-        "Founded and scaled the engineering department from 1 to 4 engineers, establishing hiring pipelines, onboarding documentation, and career ladders.",
-        "Modernized SDLC by migrating from open source ticket tracker to GitLab, implementing Agile methodologies that made sense for the team, and building the company’s first automated CI/CD workflows.",
-        "Engineered a serverless client portal on GCP (App Engine/Firebase) in under 7 days, ensuring business continuity during COVID-19.",
-        "Reduced core application load times by 70% through complete re-architecture of the legacy XML-based loading engine.",
-        "Automated QA by integrating a custom Python scripting engine into the core Java application, cutting customer-reported defects by 60%."
+        "Re-architected the flagship product's XML-based project loading engine and brought load times for the largest projects from over 10 minutes to under two.",
+        "Integrated a Python scripting engine into the core Java desktop application so customers could automate their own workflows, then used the same engine to add a regression-testing stage to CI. Customer-reported defects fell 60%.",
+        "Built and shipped a serverless client portal on GCP (App Engine, Firebase) in under seven days, which kept client training and key business functions running through the COVID-19 shutdowns.",
+        "Founded the company's first engineering team and grew it from 1 to 4 engineers, with hiring, onboarding, and Agile SDLC standards that raised ticket completion rates 65%.",
+        "Migrated issue tracking to GitLab and built the company's first automated CI/CD workflows."
       ]
     },
     {
       "company": "Optricity Corp.",
-      "role": "Software Engineer → Senior Software Engineer",
+      "role": "Senior Software Engineer",
+      "location": "Durham, NC",
       "start": "2016-01",
       "end": "2019-01",
-      "location": "Durham, NC",
+      "lede": "Founding engineer on the product team, promoted to Senior, building client-facing APIs and internal tooling.",
       "bullets": [
-        "Progressed from founding engineer to senior role, building internal tooling, client-facing APIs, and driving the company’s first modernization initiatives.",
-        "Built a direct-integration Web Services API enabling seamless data exchange between client WMS and Optricity, eliminating 10+ hours of manual data entry per client weekly.",
-        "Developed an internal quality control scanner using Python/Flask, automating data validation for customers and reducing support tickets by 20%.",
-        "Led the migration of the flagship codebase from SVN to Git, enabling modern branching strategies and issue tracking integration.",
-        "Architected the company’s secondary support application using C#/.NET, implementing proprietary algorithms for client warehouse system integration.",
-        "Created the company’s first CI/CD pipeline with Jenkins and refactored the flagship product’s script API to support third-party Python libraries."
+        "Built a Web Services API that let clients connect their Warehouse Management Systems directly to the product and cut 10+ hours of manual data entry per client each week.",
+        "Developed a Python/Flask quality-control scanner that validated client CSV uploads before ingest. Clients got immediate feedback and support tickets dropped 20%.",
+        "Architected the company's secondary support application in C#/.NET with proprietary algorithms for warehouse system integration.",
+        "Led the flagship codebase migration from SVN to Git and built the company's first Jenkins CI/CD pipeline."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Starly",
+      "tagline": "Distributed event processing platform",
+      "stack": [
+        "Python",
+        "FastAPI",
+        "MongoDB",
+        "Elasticsearch",
+        "Redis",
+        "Docker"
+      ],
+      "link": "github.com/aarrico/starly",
+      "bullets": [
+        "Built a high-volume event ingestion pipeline: FastAPI validates into an SQS-compatible in-process queue, an async worker drains it to MongoDB as source of truth and Elasticsearch for full-text search, and Redis cache-aside serves realtime stats.",
+        "Designed per-dependency graceful degradation: Redis outages recompute from MongoDB rather than failing requests, and storage or search outages return typed 503s naming the failed dependency class.",
+        "Benchmarked single-node at 626 req/sec sustained ingest with 44.8 ms p99 and zero rejections; worker drain scaled near-linearly from 50 to 251 events/sec across one to four concurrent consumers.",
+        "Traced the drain ceiling to event-loop contention. The workers share the API's loop, so drain ran 15x faster with ingest idle than in flight, and each added consumer bought drain rate at the cost of ingest p99.",
+        "Shed 57% of writes as 503 with Retry-After once the bounded queue filled under sustained overload, with zero errors and zero data loss from the 202 responses.",
+        "Documented the queue's delivery guarantees, its divergences from real SQS, failure modes, and 10x scaling limits in an architecture RFC. Tests split unit from integration runs with pytest markers."
       ]
     }
   ],
@@ -97,85 +201,6 @@
       "degree": "B.S. Physics / B.A. Computer Science / B.A. Mathematics",
       "start": "2008-08",
       "end": "2012-05"
-    }
-  ],
-  "skills": [
-    {
-      "category": "Languages",
-      "items": [
-        "Python",
-        "Node.js/TypeScript",
-        "Java",
-        "C#",
-        "SQL",
-        "Go",
-        "Bash"
-      ]
-    },
-    {
-      "category": "Backend & Frameworks",
-      "items": [
-        "Flask",
-        "FastAPI",
-        "Django",
-        "Express.js",
-        "REST API Design",
-        "OpenAPI/Swagger",
-        "WebSockets",
-        "OAuth/JWT"
-      ]
-    },
-    {
-      "category": "Data & Messaging",
-      "items": [
-        "PostgreSQL",
-        "MongoDB",
-        "DynamoDB",
-        "Redis",
-        "RabbitMQ",
-        "pandas",
-        "SQLAlchemy",
-        "Event-Driven Architecture"
-      ]
-    },
-    {
-      "category": "Cloud & Infrastructure",
-      "items": [
-        "AWS (Lambda, SQS, SNS, S3, EC2, RDS, DynamoDB, CloudWatch)",
-        "GCP",
-        "Docker",
-        "Kubernetes",
-        "Terraform",
-        "Nginx"
-      ]
-    },
-    {
-      "category": "DevOps & Testing",
-      "items": [
-        "CI/CD (GitHub Actions, GitLab CI, Jenkins)",
-        "DataDog",
-        "pytest",
-        "Jest",
-        "Cypress",
-        "Trunk-Based Development",
-        "Microservices"
-      ]
-    },
-    {
-      "category": "Frontend",
-      "items": ["React", "HTML/CSS", "JavaScript"]
-    },
-    {
-      "category": "Leadership & Tools",
-      "items": [
-        "Agile/Scrum",
-        "Incident Management",
-        "Hiring & Team Scaling",
-        "RFC/Architecture Review",
-        "Jira",
-        "Confluence",
-        "Notion"
-      ]
     }
   ]
 }

@@ -62,4 +62,51 @@ describe("ResumeSchema", () => {
     };
     expect(() => ResumeSchema.parse(bad)).toThrow();
   });
+
+  it("accepts an optional lede on a role", () => {
+    const withLede = {
+      ...validResume,
+      experience: [{ ...validResume.experience[0], lede: "Sole engineer." }],
+    };
+    expect(ResumeSchema.parse(withLede).experience[0]?.lede).toBe(
+      "Sole engineer.",
+    );
+  });
+
+  it("accepts an ongoing role whose end key is absent", () => {
+    const current = {
+      ...validResume,
+      experience: [
+        {
+          company: "Acme",
+          role: "Engineer",
+          start: "2020-01",
+          location: "LA",
+          bullets: ["Did the thing"],
+        },
+      ],
+    };
+    expect(ResumeSchema.parse(current).experience[0]?.end).toBeUndefined();
+  });
+
+  it("accepts structured projects", () => {
+    const withProjects = {
+      ...validResume,
+      projects: [
+        {
+          name: "Starly",
+          tagline: "Distributed event processing platform",
+          stack: ["Python", "FastAPI"],
+          link: "github.com/aarrico/starly",
+          bullets: ["Built the thing"],
+        },
+      ],
+    };
+    expect(ResumeSchema.parse(withProjects).projects?.[0]?.name).toBe("Starly");
+  });
+
+  it("rejects the old flat string projects array", () => {
+    const bad = { ...validResume, projects: ["Starly"] };
+    expect(() => ResumeSchema.parse(bad)).toThrow();
+  });
 });

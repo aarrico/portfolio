@@ -25,8 +25,10 @@ export const ResumeSchema = z.object({
         company: z.string().min(1),
         role: z.string().min(1),
         start: yearMonth,
-        end: z.union([yearMonth, z.null()]),
+        // nullish, not nullable: the generator omits `end` for an ongoing role
+        end: yearMonth.nullish(),
         location: z.string().min(1),
+        lede: z.string().min(1).optional(),
         bullets: z.array(z.string().min(1)).min(1),
       }),
     )
@@ -45,7 +47,17 @@ export const ResumeSchema = z.object({
       items: z.array(z.string().min(1)).min(1),
     }),
   ),
-  projects: z.array(z.string().min(1)).optional(),
+  projects: z
+    .array(
+      z.object({
+        name: z.string().min(1),
+        tagline: z.string().min(1),
+        stack: z.array(z.string().min(1)).min(1),
+        link: z.string().min(1).optional(),
+        bullets: z.array(z.string().min(1)).min(1),
+      }),
+    )
+    .optional(),
 });
 
 export type Resume = z.infer<typeof ResumeSchema>;
