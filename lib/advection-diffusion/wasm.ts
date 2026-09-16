@@ -7,10 +7,12 @@ let modulePromise: Promise<AdvDiffModule> | null = null;
 function loadModule(): Promise<AdvDiffModule> {
   if (modulePromise) return modulePromise;
 
-  modulePromise = loadWasm().then((mod) => mod as AdvDiffModule);
-  if (!modulePromise) {
-    throw new Error("could not load wasm module");
-  }
+  modulePromise = loadWasm()
+    .then((mod) => mod as AdvDiffModule)
+    .catch((error: unknown) => {
+      modulePromise = null;
+      throw error;
+    });
   return modulePromise;
 }
 

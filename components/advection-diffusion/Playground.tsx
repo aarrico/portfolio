@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useSimulationClock } from "@/lib/use-simulation-clock";
 import { Scene } from "./Scene";
 import { Curve } from "./Curve";
 import { Controls } from "./Controls";
@@ -31,17 +32,17 @@ export function Playground({ mode }: PlaygroundProps) {
   const [releaseTick, setReleaseTick] = useState<number>(0);
   const [uMax, setUMax] = useState<number>(1);
 
-  const presetStartRef = useRef<number>(0);
-  const explodedRef = useRef<boolean>(false);
-
-  useEffect(() => {
-    explodedRef.current = exploded;
-  }, [exploded]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const simulationRef = useRef<Simulation | null>(null);
+  const ambientTimeRef = useRef(0);
+  const [ready, setReady] = useState(false);
+  const [error, setError] = useState(false);
+  const [reduced, setReduced] = useState(false);
 
   const [prevResetKey, setPrevResetKey] = useState<string>(
-    `${preset}:${releaseTick}`,
+    `${mode}:${preset}:${v}:${D}:${releaseTick}`,
   );
-  const resetKey = `${preset}:${releaseTick}`;
+  const resetKey = `${mode}:${preset}:${v}:${D}:${releaseTick}`;
   if (resetKey !== prevResetKey) {
     setPrevResetKey(resetKey);
     setExploded(false);
@@ -57,9 +58,8 @@ export function Playground({ mode }: PlaygroundProps) {
 
   useEffect(() => {
     let cancelled = false;
-    let raf = 0;
     let sim: Simulation | null = null;
-    presetStartRef.current = performance.now();
+    ambientTimeRef.current = 0;
 
     (async () => {
       const newSim = await Simulation.create(buildParams());
@@ -68,6 +68,8 @@ export function Playground({ mode }: PlaygroundProps) {
         return;
       }
       sim = newSim;
+      simulationRef.current = newSim;
+      setError(false);
 
       let umax = 0;
       for (let i = 0; i < newSim.u.length; i++) {
@@ -79,60 +81,67 @@ export function Playground({ mode }: PlaygroundProps) {
       const reduced =
         typeof window !== "undefined" &&
         window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      setReduced(reduced);
+      setReady(true);
       if (mode === "ambient" && reduced) {
-        while (newSim.time < 2.0 && Number.isFinite(newSim.time)) newSim.step();
-        setSnapshot({ t: newSim.time, x: newSim.x, u: newSim.u });
+        for (let steps = 0; newSim.time < 2.0 && steps < 10_000; steps++) {
+          const previousTime = newSim.time;
+          newSim.step();
+          if (!Number.isFinite(newSim.time) || newSim.time <= previousTime) {
+            throw new Error("Simulation did not advance");
+          }
+        }
+        setSnapshot({
+          t: newSim.time,
+          x: newSim.x.slice(),
+          u: newSim.u.slice(),
+        });
         return;
       }
 
-      setSnapshot({ t: newSim.time, x: newSim.x, u: newSim.u });
-
-      const loop = (nowMs: number) => {
-        if (cancelled || !sim) return;
-        if (playing && !explodedRef.current) {
-          sim.step();
-          let bad = false;
-          for (let i = 0; i < sim.u.length; i++) {
-            if (!Number.isFinite(sim.u[i]!)) {
-              bad = true;
-              break;
-            }
-          }
-          if (bad) {
-            setExploded(true);
-          } else {
-            setSnapshot({ t: sim.time, x: sim.x, u: sim.u });
-          }
-
-          if (mode === "ambient") {
-            const elapsed = (nowMs - presetStartRef.current) / 1000;
-            const next = nextAmbientPreset(preset, elapsed);
-            if (next && next !== preset) {
-              setPreset(next);
-              return;
-            }
-          }
-        }
-        raf = requestAnimationFrame(loop);
-      };
-
-      raf = requestAnimationFrame(loop);
-    })();
+      setSnapshot({ t: newSim.time, x: newSim.x.slice(), u: newSim.u.slice() });
+    })().catch(() => {
+      if (!cancelled) {
+        simulationRef.current = null;
+        sim?.dispose();
+        sim = null;
+        setSnapshot(null);
+        setError(true);
+        setReady(false);
+      }
+    });
 
     return () => {
       cancelled = true;
-      cancelAnimationFrame(raf);
+      simulationRef.current = null;
       sim?.dispose();
     };
-  }, [buildParams, mode, playing, preset, releaseTick]);
+  }, [buildParams, mode, preset, releaseTick]);
 
-  useEffect(() => {
-    const onVis = () => {
-      if (document.hidden) setPlaying(false);
-    };
-    document.addEventListener("visibilitychange", onVis);
-    return () => document.removeEventListener("visibilitychange", onVis);
-  }, []);
+  useSimulationClock(
+    containerRef,
+    ready && playing && !exploded && !(mode === "ambient" && reduced),
+    (steps) => {
+      const sim = simulationRef.current;
+      if (!sim) return;
+      for (let i = 0; i < steps; i++) {
+        sim.step();
+        if (
+          !Number.isFinite(sim.time) ||
+          sim.u.some((value) => !Number.isFinite(value))
+        ) {
+          setExploded(true);
+          return;
+        }
+      }
+      setSnapshot({ t: sim.time, x: sim.x.slice(), u: sim.u.slice() });
+      if (mode === "ambient") {
+        ambientTimeRef.current += steps / 60;
+        const next = nextAmbientPreset(preset, ambientTimeRef.current);
+        if (next && next !== preset) setPreset(next);
+      }
+    },
+  );
 
   const handlePresetChange = (slug: PresetSlug) => {
     setPreset(slug);
@@ -142,12 +151,20 @@ export function Playground({ mode }: PlaygroundProps) {
   };
 
   const handleRelease = () => {
-    presetStartRef.current = performance.now();
+    ambientTimeRef.current = 0;
     setReleaseTick((t) => t + 1);
   };
 
   return (
-    <div className="my-6">
+    <div ref={containerRef} className="my-6">
+      {error && (
+        <div role="alert">
+          <p>The simulation could not load.</p>
+          <button type="button" onClick={handleRelease}>
+            Retry
+          </button>
+        </div>
+      )}
       {snapshot && (
         <>
           <Scene

@@ -18,9 +18,27 @@ import {
   MAX_RECEIVE_COUNT,
   QUEUE_CAPACITY,
   STAGE_TICKS,
+  MAX_LOG_ENTRIES,
+  MAX_DLQ_ENTRIES,
 } from "./sim";
 
 const codes = (s: { log: { code: string }[] }) => s.log.map((l) => l.code);
+
+describe("retention", () => {
+  it("retains recent logs and dead letters during extended use", () => {
+    let s = initialState();
+    for (let i = 0; i < MAX_DLQ_ENTRIES + 20; i++) {
+      s = runUntilQuiescent(sendPoison(s));
+    }
+    expect(s.log).toHaveLength(MAX_LOG_ENTRIES);
+    expect(s.dlq).toHaveLength(MAX_DLQ_ENTRIES);
+    expect(s.dlq[0]?.id).toBe(21);
+    expect(s.dlq.at(-1)?.id).toBe(120);
+    const redriven = redriveDlq(s);
+    expect(redriven.events).toHaveLength(MAX_DLQ_ENTRIES);
+    expect(redriven.dlq).toHaveLength(0);
+  });
+});
 
 describe("sim happy path", () => {
   it("starts empty and healthy", () => {

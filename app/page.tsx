@@ -9,6 +9,11 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { listFeaturedProjects } from "@/lib/projects";
 import { getResume } from "@/lib/resume";
 
+// @next-codemod-ignore Cache Components adoption: this segment temporarily allows blocking.
+// Remove this opt-out after verifying the segment passes validation without it.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+export const instant = false;
+
 const PALM_SCALE =
   "scale(clamp(0.55, calc(0.55 + 0.45 * (100vw - 360px) / 664px), 1))";
 

@@ -71,7 +71,7 @@
   /* Pastel Dawn Vaporwave Day Mode */
   --bg: #fcf5f7;
   --fg: var(--color-blue);
-  --accent: var(--color-orange);
+  --accent: #ad391b;
   --gradient-stop-1: var(--color-blue);
   --gradient-stop-2: var(--color-purple);
   --gradient-stop-3: var(--color-rose);

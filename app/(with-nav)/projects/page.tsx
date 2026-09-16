@@ -3,6 +3,11 @@ import { InnerPageHeader } from "@/components/aesthetic/InnerPageHeader";
 import { ProjectCard } from "@/components/ProjectCard";
 import { listProjects } from "@/lib/projects";
 
+// @next-codemod-ignore Cache Components adoption: this segment temporarily allows blocking.
+// Remove this opt-out after verifying the segment passes validation without it.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+export const instant = false;
+
 export const metadata: Metadata = {
   title: "Projects",
   description: "Selected projects by Alexander Arrico.",

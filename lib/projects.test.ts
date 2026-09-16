@@ -66,4 +66,12 @@ describe("JSON↔MDX pairing", () => {
       );
     }
   });
+
+  it("uses existing static thumbnails", () => {
+    for (const project of listProjects()) {
+      if (!project.thumbnail) continue;
+      expect(project.thumbnail).not.toMatch(/\.gif$/i);
+      expect(existsSync(resolve(`public${project.thumbnail}`))).toBe(true);
+    }
+  });
 });

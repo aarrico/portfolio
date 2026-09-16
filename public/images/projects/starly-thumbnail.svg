@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <rect width="640" height="360" fill="#341d6a"/>
+  <g fill="none" stroke="#49b3ad" stroke-width="3">
+    <path d="M100 180H540M397 210V235"/>
+    <rect x="35" y="150" width="105" height="60" rx="8" fill="#24144a"/>
+    <rect x="190" y="150" width="105" height="60" rx="8" fill="#24144a"/>
+    <rect x="345" y="150" width="105" height="60" rx="8" fill="#24144a"/>
+    <rect x="500" y="150" width="105" height="60" rx="8" fill="#24144a"/>
+    <rect x="345" y="235" width="105" height="50" rx="8" fill="#24144a" stroke="#f09e38"/>
+  </g>
+  <g fill="#eaddcd" font-family="monospace" text-anchor="middle">
+    <text x="320" y="80" font-size="30">STARLY</text>
+    <text x="320" y="110" font-size="14">EVENT PROCESSING PIPELINE</text>
+    <g font-size="15">
+      <text x="87" y="186">API</text>
+      <text x="242" y="186">QUEUE</text>
+      <text x="397" y="186">WORKER</text>
+      <text x="552" y="186">STORES</text>
+      <text x="397" y="266">RETRY / DLQ</text>
+    </g>
+  </g>
+  <g fill="#f09e38"><circle cx="163" cy="180" r="5"/><circle cx="320" cy="180" r="5"/><circle cx="475" cy="180" r="5"/></g>
+</svg>

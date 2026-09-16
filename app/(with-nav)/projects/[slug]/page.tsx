@@ -5,6 +5,11 @@ import { InnerPageHeader } from "@/components/aesthetic/InnerPageHeader";
 import { getProject, listProjectSlugs, loadProjectBody } from "@/lib/projects";
 import { FaGithub } from "react-icons/fa";
 
+// @next-codemod-ignore Cache Components adoption: this segment temporarily allows blocking.
+// Remove this opt-out after verifying the segment passes validation without it.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+export const instant = false;
+
 type RouteParams = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {

@@ -4,6 +4,11 @@ import { IntroBand } from "@/components/about/IntroBand";
 import { SectionNav } from "@/components/about/SectionNav";
 import { loadAboutSection } from "@/lib/about";
 
+// @next-codemod-ignore Cache Components adoption: this segment temporarily allows blocking.
+// Remove this opt-out after verifying the segment passes validation without it.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+export const instant = false;
+
 export const metadata: Metadata = {
   title: "About",
   description:
@@ -64,7 +69,7 @@ export default async function AboutPage() {
       >
         A background in physics and supercomputing shapes how I approach
         software engineering and technical leadership. Currently bridging into
-        learning the ropes of AI engineering, and building a Pokémon GO team
+        learning the ropes of AI engineering, and building a Pokémon Champions team
         optimizer on the side.
       </IntroBand>
 

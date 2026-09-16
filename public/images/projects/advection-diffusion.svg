@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <rect width="640" height="360" fill="#341d6a"/>
+  <g fill="#eaddcd" font-family="monospace" text-anchor="middle">
+    <text x="320" y="70" font-size="26">ADVECTION + DIFFUSION</text>
+    <text x="320" y="101" font-size="15">TRANSPORT AND SPREAD OF A PLUME</text>
+  </g>
+  <path d="M65 135V290H580" fill="none" stroke="#eaddcd" stroke-opacity=".5" stroke-width="2"/>
+  <path d="M65 288C130 288 125 150 170 150S210 288 275 288" fill="none" stroke="#eaddcd" stroke-opacity=".5" stroke-width="3" stroke-dasharray="6 5"/>
+  <path d="M100 288C210 288 230 185 335 185S445 288 580 288" fill="none" stroke="#49b3ad" stroke-width="4"/>
+  <path d="M220 152H320L310 146M320 152L310 158" fill="none" stroke="#f09e38" stroke-width="3"/>
+  <g fill="#eaddcd" font-family="monospace" font-size="14">
+    <text x="435" y="324">distance</text>
+    <text x="85" y="135">concentration</text>
+  </g>
+</svg>

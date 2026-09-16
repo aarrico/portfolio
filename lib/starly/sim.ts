@@ -8,6 +8,8 @@ export const BASE_RETRY_DELAY_TICKS = 40;
 export const STAGE_TICKS = 36;
 export const FADE_TICKS = 30;
 export const CACHE_TTL_TICKS = 300;
+export const MAX_LOG_ENTRIES = 200;
+export const MAX_DLQ_ENTRIES = 100;
 // Round trip is client → API → store → API → client, so the budget covers
 // roughly twice the distance the old API-only hop did.
 export const PROBE_TICKS = 96;
@@ -53,6 +55,7 @@ function failWrite(state: SimState, e: SimEvent, reason: string): void {
   if (e.receiveCount >= MAX_RECEIVE_COUNT) {
     e.stage = "dlq";
     state.dlq.push({ ...e });
+    state.dlq = state.dlq.slice(-MAX_DLQ_ENTRIES);
     pushLog(
       state,
       "dlq",
@@ -72,6 +75,7 @@ function failWrite(state: SimState, e: SimEvent, reason: string): void {
 
 function pushLog(state: SimState, code: string, text: string): void {
   state.log.push({ tick: state.tick, code, text });
+  state.log = state.log.slice(-MAX_LOG_ENTRIES);
 }
 
 function addEvent(state: SimState, poison: boolean): void {
@@ -184,6 +188,7 @@ export function tickSim(state: SimState): SimState {
       if (candidate.poison) {
         candidate.stage = "dlq";
         next.dlq.push({ ...candidate });
+        next.dlq = next.dlq.slice(-MAX_DLQ_ENTRIES);
         pushLog(
           next,
           "reject",

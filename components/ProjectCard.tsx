@@ -19,7 +19,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         ) : project.thumbnail ? (
           <Image
             src={project.thumbnail}
-            alt={`${project.title} screenshot`}
+            alt={`${project.title} preview`}
             fill
             sizes="(min-width: 768px) 33vw, 100vw"
             className="object-cover"

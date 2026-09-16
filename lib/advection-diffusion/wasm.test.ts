@@ -32,7 +32,11 @@ function maxAbsDiff(a: Float64Array, b: readonly number[]): number {
   for (let i = 0; i < n; i++) {
     const v = a[i]!;
     const w = b[i]!;
-    if (!Number.isFinite(v) || !Number.isFinite(w)) continue;
+    expect(Number.isFinite(v)).toBe(true);
+    expect(
+      Number.isFinite(w),
+      `Invalid reference sample at index ${i}: ${w}`,
+    ).toBe(true);
     const d = Math.abs(v - w);
     if (d > m) m = d;
   }
@@ -109,7 +113,17 @@ describe("Fortran parity", () => {
       const sim = await Simulation.create(buildParams(ref, preset));
       try {
         for (const target of preset.snapshots) {
-          while (sim.time + 1e-12 < target.t) sim.step();
+          for (
+            let steps = 0;
+            sim.time + 1e-12 < target.t && steps < 10_000;
+            steps++
+          ) {
+            const previousTime = sim.time;
+            sim.step();
+            expect(Number.isFinite(sim.time)).toBe(true);
+            expect(sim.time).toBeGreaterThan(previousTime);
+          }
+          expect(sim.time + 1e-12).toBeGreaterThanOrEqual(target.t);
           expect(sim.u.length).toBe(target.u.length);
           expect(maxAbsDiff(sim.u, target.u)).toBeLessThan(PARITY_TOLERANCE);
         }

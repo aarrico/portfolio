@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import { InnerPageHeader } from "@/components/aesthetic/InnerPageHeader";
-import { ContactForm } from "@/components/ContactForm";
 import { getResume } from "@/lib/resume";
 import { SocialLinks } from "@/components/SocialLinks";
+
+// @next-codemod-ignore Cache Components adoption: this segment temporarily allows blocking.
+// Remove this opt-out after verifying the segment passes validation without it.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+export const instant = false;
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -16,33 +20,9 @@ export default function ContactPage() {
       <InnerPageHeader title="CONTACT" />
       <section className="mx-auto max-w-md px-4 py-12">
         <div className="flex flex-col items-center text-center">
-          <h2 className="font-display text-xl tracking-widest">DIRECT</h2>
-          <a
-            href={`mailto:${basics.email}`}
-            className="mt-4 text-sm hover:text-[color:var(--accent)]"
-          >
-            {basics.email}
-          </a>
+          Feel free to reach out to me via email or connect with me on LinkedIn if you're looking for an engineer with my skills!
           <div className="mt-4">
             <SocialLinks direction="horizontal" />
-          </div>
-        </div>
-
-        <div
-          className="my-10 flex items-center gap-4 text-xs uppercase tracking-[0.3em] opacity-60"
-          aria-hidden="true"
-        >
-          <span className="h-px flex-1 bg-[color:var(--fg)]/20" />
-          <span>or</span>
-          <span className="h-px flex-1 bg-[color:var(--fg)]/20" />
-        </div>
-
-        <div>
-          <h2 className="text-center font-display text-xl tracking-widest">
-            FORM
-          </h2>
-          <div className="mt-6">
-            <ContactForm />
           </div>
         </div>
       </section>

@@ -1,4 +1,4 @@
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
 import { getResume } from "@/lib/resume";
 
 type SocialLinksProps = {
@@ -16,6 +16,15 @@ export function SocialLinks({
 
   return (
     <div className={`flex items-center ${flexClass}`}>
+      <a
+        href={`mailto:${basics.email}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Email"
+        className="transition-colors hover:text-[color:var(--accent)]"
+      >
+        <FaEnvelope size={iconSize} />
+      </a>
       <a
         href={basics.links.github}
         target="_blank"

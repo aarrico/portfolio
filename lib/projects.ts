@@ -70,10 +70,7 @@ export function getProject(slug: string): Project | null {
 }
 
 export async function loadProjectBody(slug: string): Promise<ComponentType> {
-  try {
-    const body = await import(`@/content/projects/${slug}.mdx`);
-    return body.default;
-  } catch {
-    notFound();
-  }
+  if (!getProject(slug)) notFound();
+  const body = await import(`@/content/projects/${slug}.mdx`);
+  return body.default;
 }

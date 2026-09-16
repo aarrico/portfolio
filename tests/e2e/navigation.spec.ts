@@ -33,6 +33,14 @@ test("navigates Home → About → Projects → detail → Resume → Contact", 
   await expect(windSlider).toBeVisible();
   await windSlider.fill("2");
   await expect(windSlider).toHaveValue("2");
+  const curve = page.getByRole("img", { name: /concentration curve at t/i });
+  await expect(curve).not.toHaveAttribute("aria-label", /t = 0\.00$/);
+  await page.getByRole("button", { name: "Pause", exact: true }).click();
+  const paused = await curve.getAttribute("aria-label");
+  await page.waitForTimeout(250);
+  await expect(curve).toHaveAttribute("aria-label", paused!);
+  await page.getByRole("button", { name: "Play", exact: true }).click();
+  await expect(curve).not.toHaveAttribute("aria-label", paused!);
 
   await page.goBack();
   await page
@@ -47,5 +55,11 @@ test("navigates Home → About → Projects → detail → Resume → Contact", 
 
   await page.getByRole("link", { name: "Contact" }).click();
   await expect(page).toHaveURL(/\/contact$/);
-  await expect(page.getByLabel("Email")).toBeVisible();
+  const email = page.locator('a[href^="mailto:"]');
+  await expect(email).toBeVisible();
+  await expect(email).toHaveAttribute(
+    "href",
+    `mailto:${await email.textContent()}`,
+  );
+  await expect(page.locator("form")).toHaveCount(0);
 });
