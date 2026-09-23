@@ -4,6 +4,7 @@ import {
   fireEvent,
   render,
   screen,
+  waitFor,
 } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { Simulation } from "@/lib/advection-diffusion/wasm";
@@ -82,6 +83,7 @@ async function mount() {
   vi.mocked(Simulation.create).mockResolvedValue(sim as unknown as Simulation);
   const view = render(<Playground mode="interactive" />);
   await screen.findByLabelText("Simulation time");
+  await waitFor(() => expect(frames.size).toBeGreaterThan(0));
   return { sim, ...view };
 }
 

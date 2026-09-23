@@ -11,7 +11,7 @@
       "github": "https://github.com/aarrico"
     }
   },
-  "summary": "Senior software engineer with 10+ years on production backend systems in Python, Node.js/TypeScript, and Java. Most of that work is distributed and event-driven: moving legacy monoliths onto AWS, and designing the APIs and data models underneath. Migrated 20,000+ users off a Java monolith to Node.js microservices with zero customer data loss, cut PostgreSQL query latency from seconds to tens of milliseconds, and built a serverless messaging pipeline on AWS Lambda and SQS carrying 350,000+ outbound and 12,000 inbound messages daily.",
+  "summary": "Senior software engineer with 10+ years modernizing production backends that have to stay online while they change. Led a Java-to-Node.js migration of 20,000+ users without data loss or full-service outages, and designed AWS messaging that handles 350,000+ outbound messages daily. Former engineering manager who remains hands-on with architecture, code, and production operations across Python, TypeScript, Java, and AWS.",
   "skills": [
     {
       "category": "Languages",
