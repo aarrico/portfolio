@@ -98,7 +98,7 @@
       "company": "Freelance",
       "role": "Software Consultant",
       "location": "Remote",
-      "start": "2024-06",
+      "start": "2023-11",
       "end": "2026-05",
       "lede": "Sole engineer on a client's Discord community platform, owning architecture, deployment, and production operations end to end.",
       "bullets": [
@@ -110,7 +110,7 @@
     {
       "company": "Hourwork, Inc.",
       "role": "Engineering Manager",
-      "location": "Remote",
+      "location": "Boston, MA",
       "start": "2022-05",
       "end": "2023-11",
       "lede": "Player-coach on a 5-person cross-functional team (3 engineers, QA, product); primary backend engineer on the platform rebuild while managing the team.",
@@ -126,7 +126,7 @@
     {
       "company": "BlueMark",
       "role": "Lead Software Engineer",
-      "location": "Remote",
+      "location": "Valencia, CA",
       "start": "2021-06",
       "end": "2022-04",
       "lede": "Backend lead on an e-commerce platform build, owning REST API design and the automated test strategy.",
