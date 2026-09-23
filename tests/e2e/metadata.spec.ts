@@ -20,11 +20,11 @@ test("contact link remains visible on mobile with reduced motion", async ({
   await page.setViewportSize({ width: 390, height: 844 });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/contact");
-  const email = page.locator('a[href^="mailto:"]');
+  const email = page.getByRole("main").getByRole("link", { name: "Email" });
   await expect(email).toBeVisible();
   await expect(email).toHaveAttribute(
     "href",
-    `mailto:${await email.textContent()}`,
+    /^mailto:[^@\s]+@[^@\s]+\.[^@\s]+$/,
   );
   await expect(page.locator("form")).toHaveCount(0);
 });

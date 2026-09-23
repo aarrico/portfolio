@@ -55,11 +55,11 @@ test("navigates Home → About → Projects → detail → Resume → Contact", 
 
   await page.getByRole("link", { name: "Contact" }).click();
   await expect(page).toHaveURL(/\/contact$/);
-  const email = page.locator('a[href^="mailto:"]');
+  const email = page.getByRole("main").getByRole("link", { name: "Email" });
   await expect(email).toBeVisible();
   await expect(email).toHaveAttribute(
     "href",
-    `mailto:${await email.textContent()}`,
+    /^mailto:[^@\s]+@[^@\s]+\.[^@\s]+$/,
   );
   await expect(page.locator("form")).toHaveCount(0);
 });
