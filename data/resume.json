@@ -84,12 +84,8 @@
     {
       "category": "Practices",
       "items": [
-        "Agile/Scrum",
         "Incident Management",
-        "RFC/Architecture Review",
-        "Jira",
-        "Confluence",
-        "Notion"
+        "RFC/Architecture Review"
       ]
     }
   ],
@@ -102,9 +98,9 @@
       "end": "2026-05",
       "lede": "Sole engineer on a client's Discord community platform, owning architecture, deployment, and production operations end to end.",
       "bullets": [
-        "Rewrote the client's TypeScript/Node.js application end to end on a layered domain architecture (controller, repository, domain, presentation), with PostgreSQL persistence through Prisma.",
+        "Rewrote the client's TypeScript/Node.js application with a layered domain architecture and PostgreSQL persistence through Prisma.",
         "Built scheduled session automation with downtime-recovery logic, plus an auto-discovery pattern for command and event handlers that let new features register with zero configuration.",
-        "Owned the deployment path end to end, replacing manual deploys with multi-stage Docker builds, GitHub Actions CI/CD, and Railway. Containerized PostgreSQL kept local and production at parity."
+        "Replaced manual deployments with multi-stage Docker builds and GitHub Actions CI/CD on Railway. Containerized PostgreSQL kept local and production at parity."
       ]
     },
     {
@@ -117,7 +113,7 @@
       "bullets": [
         "Architected a serverless messaging platform on AWS Lambda, SQS, and SNS with Twilio that carried 350,000+ outbound and 12,000 inbound messages daily.",
         "Re-architected the PostgreSQL data models and cut query latency from seconds to tens of milliseconds. The resulting real-time analytics expanded the enterprise sales pipeline.",
-        "Migrated 20,000+ users from a Java/Spring Boot monolith to Node.js microservices in 11 months with zero customer data loss and no full-service outages.",
+        "Migrated 20,000+ users from a Java/Spring Boot monolith to Node.js microservices in 11 months through staged customer rollouts with verification checks. Kept the old system running for unmigrated customers and paused rollouts to resolve scaling issues before expanding, with zero customer data loss and no full-service outages.",
         "Built out observability on DataDog and cut resolution time for critical production issues from weeks, or never, to under 24 hours.",
         "Moved releases from sporadic multi-month cycles to weekly with trunk-based development and automated CI/CD.",
         "Instituted code review standards, an RFC process, and incident management protocols; customer-reported bugs dropped 85% within two months."
@@ -147,8 +143,7 @@
         "Re-architected the flagship product's XML-based project loading engine and brought load times for the largest projects from over 10 minutes to under two.",
         "Integrated a Python scripting engine into the core Java desktop application so customers could automate their own workflows, then used the same engine to add a regression-testing stage to CI. Customer-reported defects fell 60%.",
         "Built and shipped a serverless client portal on GCP (App Engine, Firebase) in under seven days, which kept client training and key business functions running through the COVID-19 shutdowns.",
-        "Founded the company's first engineering team and grew it from 1 to 4 engineers, with hiring, onboarding, and Agile SDLC standards that raised ticket completion rates 65%.",
-        "Migrated issue tracking to GitLab and built the company's first automated CI/CD workflows."
+        "Migrated issue tracking to GitLab and built automated CI/CD workflows."
       ]
     },
     {
@@ -180,12 +175,10 @@
       ],
       "link": "github.com/aarrico/starly",
       "bullets": [
-        "Built a high-volume event ingestion pipeline: FastAPI validates into an SQS-compatible in-process queue, an async worker drains it to MongoDB as source of truth and Elasticsearch for full-text search, and Redis cache-aside serves realtime stats.",
-        "Designed per-dependency graceful degradation: Redis outages recompute from MongoDB rather than failing requests, and storage or search outages return typed 503s naming the failed dependency class.",
-        "Benchmarked single-node at 626 req/sec sustained ingest with 44.8 ms p99 and zero rejections; worker drain scaled near-linearly from 50 to 251 events/sec across one to four concurrent consumers.",
-        "Traced the drain ceiling to event-loop contention. The workers share the API's loop, so drain ran 15x faster with ingest idle than in flight, and each added consumer bought drain rate at the cost of ingest p99.",
-        "Shed 57% of writes as 503 with Retry-After once the bounded queue filled under sustained overload, with zero errors and zero data loss from the 202 responses.",
-        "Documented the queue's delivery guarantees, its divergences from real SQS, failure modes, and 10x scaling limits in an architecture RFC. Tests split unit from integration runs with pytest markers."
+        "Built a FastAPI event ingestion pipeline with an SQS-compatible in-process queue, async workers, MongoDB as source of truth, Elasticsearch full-text search, and Redis cache-aside for real-time stats.",
+        "Designed dependency-specific failure handling: Redis outages recompute from MongoDB; storage or search outages return typed HTTP 503s. Under sustained overload, rejected 57% of writes with HTTP 503 and Retry-After when the bounded queue filled; requests accepted with HTTP 202 had no errors or data loss during the test.",
+        "Measured worker drain from 50 to 251 events/sec across one to four concurrent consumers in single-node benchmarks. Traced the drain ceiling to contention on the API's shared event loop: drain ran 15x faster with ingest idle, while added consumers increased drain throughput at the cost of ingest p99 latency.",
+        "Documented the queue's delivery guarantees, its divergences from real SQS, failure modes, and 10x scaling limits in an architecture RFC."
       ]
     }
   ],
